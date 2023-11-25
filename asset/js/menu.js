@@ -1,81 +1,85 @@
-let defaultData = [
-    {
-        'name': 'Gà chiên giòn',
-        'price': 50000,
-        'quantity': 100,
-        'type': '2',
-        'description': '1 Phần Gà Chiên Giòn',
-        'img': 'asset/img/chicken.jpg'
-    },
-    {
-        'name': 'Combo Lẻ 1',
-        'price': 50000,
-        'quantity': 100,
-        'type': '0',
-        'description': '1 Burger + 1 Khoai Tây Chiên',
-        'img': 'asset/img/burgerFries.jpg'
-    },
-    {
-        'name': 'Coca Cola',
-        'price': 20000,
-        'quantity': 100,
-        'type': '3',
-        'description': '1 Lon Coca Cola',
-        'img': 'asset/img/coca.jpg'
-    },
-    {
-        'name': 'Burger Tôm',
-        'price': 50000,
-        'quantity': 100,
-        'type': '2',
-        'description': '1 Phần Burger Tôm',
-        'img': 'asset/img/shrimpBurger.jpg'
-    },
-    {
-        'name': 'Nước Ép Cam',
-        'price': 30000,
-        'quantity': 100,
-        'type': '3',
-        'description': '1 Ly Nước Ép Cam',
-        'img': 'asset/img/orangeJuice.jpg'
-    },
-    {
-        'name': 'Soda Chanh',
-        'price': 30000,
-        'quantity': 100,
-        'type': '3',
-        'description': '1 Ly Soda Chanh',
-        'img': 'asset/img/lemonSoda.jpg'
-    },
-    {
-        'name': 'Khoai Tây Chiên',
-        'price': 50000,
-        'quantity': 100,
-        'type': '2',
-        'description': '1 Phần Khoai Tây Chiên',
-        'img': 'asset/img/fries.jpg'
-    },
-    {
-        'name': 'Combo Nhóm 1',
-        'price': 80000,
-        'quantity': 100,
-        'type': '1',
-        'description': '1 Burger + 1 Coca + 1 Khoai Tây Chiên',
-        'img': 'asset/img/burgerFriesDrink.webp'
-    },
-    {
-        'name': 'Combo Nhóm 2',
-        'price': 80000,
-        'quantity': 100,
-        'type': '1',
-        'description': '1 Burger + 2 Pepsi + 3 Miếng Gà',
-        'img': 'asset/img/comboNhom1.jpg'
-    }
-];
-localStorage.setItem("products", JSON.stringify(defaultData));
 
-// let products = JSON.parse(localStorage.getItem("products")) ?? [];
-const products = JSON.parse(localStorage.getItem("products")) ?? [];
+let products = JSON.parse(localStorage.getItem("products")) ?? [];
+if (products.length == 0)
+{
+    let defaultData = [
+        {
+            'name': 'Gà chiên giòn',
+            'price': 50000,
+            'quantity': 100,
+            'type': '2',
+            'description': '1 Phần Gà Chiên Giòn',
+            'img': 'asset/img/chicken.jpg'
+        },
+        {
+            'name': 'Combo Lẻ 1',
+            'price': 50000,
+            'quantity': 100,
+            'type': '0',
+            'description': '1 Burger + 1 Khoai Tây Chiên',
+            'img': 'asset/img/burgerFries.jpg'
+        },
+        {
+            'name': 'Coca Cola',
+            'price': 20000,
+            'quantity': 100,
+            'type': '3',
+            'description': '1 Lon Coca Cola',
+            'img': 'asset/img/coca.jpg'
+        },
+        {
+            'name': 'Burger Tôm',
+            'price': 50000,
+            'quantity': 100,
+            'type': '2',
+            'description': '1 Phần Burger Tôm',
+            'img': 'asset/img/shrimpBurger.jpg'
+        },
+        {
+            'name': 'Nước Ép Cam',
+            'price': 30000,
+            'quantity': 100,
+            'type': '3',
+            'description': '1 Ly Nước Ép Cam',
+            'img': 'asset/img/orangeJuice.jpg'
+        },
+        {
+            'name': 'Soda Chanh',
+            'price': 30000,
+            'quantity': 100,
+            'type': '3',
+            'description': '1 Ly Soda Chanh',
+            'img': 'asset/img/lemonSoda.jpg'
+        },
+        {
+            'name': 'Khoai Tây Chiên',
+            'price': 50000,
+            'quantity': 100,
+            'type': '2',
+            'description': '1 Phần Khoai Tây Chiên',
+            'img': 'asset/img/fries.jpg'
+        },
+        {
+            'name': 'Combo Nhóm 1',
+            'price': 80000,
+            'quantity': 100,
+            'type': '1',
+            'description': '1 Burger + 1 Coca + 1 Khoai Tây Chiên',
+            'img': 'asset/img/burgerFriesDrink.webp'
+        },
+        {
+            'name': 'Combo Nhóm 2',
+            'price': 80000,
+            'quantity': 100,
+            'type': '1',
+            'description': '1 Burger + 2 Pepsi + 3 Miếng Gà',
+            'img': 'asset/img/comboNhom1.jpg'
+        }
+    ];
+    products = defaultData;
+    localStorage.setItem("products", JSON.stringify(defaultData));
+}
+
 const numberOfProductInPage = 8;
 
 let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
@@ -119,8 +123,6 @@ function taomenu() {
     var nav = document.querySelector("#nav-container ul");
     nav.innerHTML = finalData;
     renderProducts();
-    // renderProductsInPage(0);
-    
 }
 
 // ============================================================================================================================================
@@ -153,7 +155,35 @@ function renderProducts() {
         }
     }
     document.querySelector("#pageNumbers #container").innerHTML = pageNumberData;
-    renderProductsInPage(0)
+    renderProductsInPage(0);
+}
+
+function renderProductsInPage(index = 0) {
+    var startIndex = index * numberOfProductInPage;
+    var endIndex = startIndex + numberOfProductInPage - 1;
+    var finalData = '';
+    for (let i = startIndex; i <= endIndex && i < htmlProducts.length; i++) {
+        finalData += ` <div class="product" index="${i}">
+                                <div class="product-img">
+                                    <img src=${htmlProducts[i].img} alt="">
+                                </div>
+
+                                <div class="product-desc">
+                                    <div class="product-name">
+                                        <h2>${htmlProducts[i].name}</h2>
+                                    </div>
+                                    
+                                    <div class="product-price">
+                                        <h3>${htmlProducts[i].price}</h3>
+                                    </div>
+
+                                    <button class="addToCart">
+                                        Thêm vào giỏ hàng
+                                    </button>
+                                </div>
+                            </div>`
+    }
+    document.querySelector("#content-container").innerHTML = finalData;
 
     // buy
     const buyBtns = document.querySelectorAll(".addToCart");
@@ -199,10 +229,6 @@ function renderProducts() {
                 renderCart();
 
             }
-            // else {
-            //     alert('Bạn phải đăng nhập để có thể mua hàng!!');
-
-            // }
         })
 
         details[i].addEventListener("click", function detail() {
@@ -238,36 +264,6 @@ function renderProducts() {
         })
     }
 
-
-}
-
-function renderProductsInPage(index = 0) {
-    var startIndex = index * numberOfProductInPage;
-    var endIndex = startIndex + numberOfProductInPage - 1;
-    var finalData = '';
-    for (let i = startIndex; i <= endIndex && i < htmlProducts.length; i++) {
-        finalData += ` <div class="product" index="${i}">
-                                <div class="product-img">
-                                    <img src=${htmlProducts[i].img} alt="">
-                                </div>
-
-                                <div class="product-desc">
-                                    <div class="product-name">
-                                        <h2>${htmlProducts[i].name}</h2>
-                                    </div>
-                                    
-                                    <div class="product-price">
-                                        <h3>${htmlProducts[i].price}</h3>
-                                    </div>
-
-                                    <button class="addToCart">
-                                        Thêm vào giỏ hàng
-                                    </button>
-                                </div>
-                            </div>`
-    }
-    document.querySelector("#content-container").innerHTML = finalData;
-    // renderProducts();
 }
 
 // ============================================================================================================================================
@@ -305,7 +301,6 @@ function updateCount(index, count) {
     renderCart()
 }
 
-// cart.push(createCartProduct(products[1]));
 updateProductToCart();
 renderCart();
 

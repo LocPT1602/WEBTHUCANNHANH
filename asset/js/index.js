@@ -70,9 +70,41 @@ function transWidth() {
 }
 
 
-//slider-show
+//slider
+let sliderListImg = ['asset/img/shrimpBurger.jpg', 'asset/img/item6.jpg', 'asset/img/maxresdefault.jpg'];
+var imgFeature = document.querySelector('#img-feature');
+var prevBtn = document.querySelector('.prev');
+var nextBtn = document.querySelector('.next');
+var currentIndex = 0;
 
-//end slider-show
+
+
+prevBtn.addEventListener('click', e=> {
+    if (currentIndex == 0)
+    {
+        currentIndex = sliderListImg.length - 1;
+    }
+    else 
+        currentIndex--;
+    imgFeature.src = sliderListImg[currentIndex];
+})
+
+nextBtn.addEventListener('click', e=> {
+
+    if (currentIndex == sliderListImg.length - 1)
+    {
+        currentIndex = 0;
+    }
+    else 
+        currentIndex++;
+    imgFeature.src = sliderListImg[currentIndex];
+})
+
+setInterval(() => {nextBtn.click()}, 3000);
+
+//end slider
+
+
 function resetWidth() {
   findBox.style.width = ''; // Reset to the default width (empty string)
 }
@@ -102,24 +134,26 @@ var loginBtn = document.getElementsByClassName('login_btn')[0];
 var user = document.getElementById('nameuser')
 var LogOut = document.getElementById('logout')
 var logOutBtn = document.getElementsByClassName('logout_btn')[0]
-var inforAccount = [
-  {
+
+let inforAccount = JSON.parse(localStorage.getItem('accountData')) ?? [];
+if (inforAccount.length == 0) 
+{
+  inforAccount = [{
     fullName: 'Admin',
     email: 'admin@example.com',
     phoneNumber: '123456789',
     password: 'adminPassword',
     isAdmin: true // Đặt trạng thái admin
-  }
-  , {
+  },
+  {
     email: "ploc32207@gmail.com",
     fullName: "phan lộc",
     password: "23122004",
     phoneNumber: "0814836606",
     sexSelect: "",
-
-  }
-];
-localStorage.setItem("accountData", JSON.stringify(inforAccount));
+  }];
+  localStorage.setItem('accountData', JSON.stringify(inforAccount));
+};
 
 loginIcon.addEventListener('click', loginFormOpen);
 closeLogin.addEventListener('click', loginFormClose);
@@ -209,7 +243,7 @@ function login(event) {
       if (accountLogin.password === passwordLogin) {
         localStorage.setItem('loggedInAccount', JSON.stringify(accountLogin));
         logInAccount = accountLogin;
-        if (logInAccount.isAdmin==true) {
+        if (logInAccount.isAdmin == true) {
           // Nếu là admin, chuyển sang trang admin
           
           document.getElementById('end-user').style.display = 'none'
@@ -250,13 +284,13 @@ function login(event) {
 document.addEventListener('DOMContentLoaded', function () {
   var loggedInAccount = JSON.parse(localStorage.getItem('loggedInAccount'));
 
-  if (loggedInAccount !== null) {
+  if (loggedInAccount != null) {
     if (loggedInAccount.isAdmin) {
       // Nếu là admin, chuyển sang trang admin
       document.getElementById('end-user').style.display = 'none'
       document.getElementsByClassName('admin-container')[0].style.display = 'flex'
 
-     
+
     }
     else {
       logInAccount = loggedInAccount;

@@ -29,7 +29,8 @@ body{
     background-color:#000000;
     color: aliceblue;
     border-top-left-radius: 10px;
-    border-top-right-radius: 10px
+    border-top-right-radius: 10px;
+
 }
 #home_page{
     display: block;
@@ -50,13 +51,11 @@ body{
     
 }
 
-#head .container{
-    
-
-}
 #head .container .nav-select{
     width: 55%;
     order: 2;
+    text-transform: uppercase;
+
 }
 
 #head .container .pagewed {
@@ -142,44 +141,41 @@ body{
   
 }
 
-
-
-
-#slider-product {
-    width: 100%;
-    height: 500px;
-    margin-top: 80px;
-    overflow: hidden;
-    display: flex; /* Cho phép các slider chồng lên nhau theo chiều ngang */
+#slider {
+    width: 70%;
+    height: 400px;
+    margin: 100px auto 20px auto;
 }
-
-.slider {
+#slider-wrapper {
     position: relative;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.5s ease-in-out;
+    box-shadow: 8px 8px 30px 6px rgb(96, 96, 96);
 }
 
-.img-slider {
-    position: absolute;
+#slider-wrapper img{
     width: 100%;
     height: 100%;
-    background: no-repeat;
-    background-size: cover;
+    object-fit: cover;
+    object-position: center;
 }
 
-.btn-slider {
-    text-align: center;
-    color: #000000;
-    background-color: rgba(255, 204, 0, 0.8);
-    width: 310px;
-    border-radius: 10px;
-    padding: 20px 10px;
-    z-index: 1;
+#slider-wrapper .control {
+    position: absolute;
+    font-size: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
 
 /* content */
 #content{
@@ -472,12 +468,7 @@ body{
     #head .container .find_page:hover{
      
     }
-    .img-slider{
-        
-    }
-    #slider-product{
-        height: 255px;
-    }
+    
     #content .menu {
         display: flex;
         flex-direction: column;

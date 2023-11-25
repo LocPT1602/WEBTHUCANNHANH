@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var dashBoard=document.getElementById('dashboard')
     var productManage = document.getElementById('container_admin');
     var orderHistory=document.getElementById('order-history-container')
+    var totalSale=document.getElementById('total_sale')
     var currentNavItemContent = document.getElementsByClassName('name')[0]
 
     var currentSelected = dashBoard;
@@ -42,8 +43,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     currentSelected =orderHistory
                     break;
                 case "businessStats":
+                    totalSale.style.display='block'
                     currentNavItemContent.textContent = namePage[3].textContent;
-
+                    currentSelected=totalSale
                     break;
                 // Thêm các case khác tương ứng với các mục trong nav left
                 default:
@@ -67,44 +69,8 @@ function openAddItem() {
 
 addBtn.addEventListener('click', openAddItem);
 
-// function addProduct() {
-//     // Lấy giá trị từ các trường input
-//     var name = document.getElementsByClassName('nameInput')[0].value;
-//     var price = parseFloat(document.getElementsByClassName('priceInput')[0].value);
-//     var quantity = parseInt(document.getElementsByClassName('quantityInput').value);
-//     var type = document.getElementsByClassName('typeInput')[0].value;
-//     var description = document.getElementsByClassName('describeInput')[0].value;
-//     var img = document.getElementsByClassName('img_input')[0];
 
-//     // Tạo đối tượng sản phẩm
-//     var products = {
-//         'name': name,
-//         'price': price,
-//         'quantity': quantity,
-//         'type': type,
-//         'description': description,
-//         'img': img
-//     };
-//      console.log(products);
 
-//     // var products = JSON.parse(localStorage.getItem('products')) || [];
-
-//     //     // Thêm sản phẩm mới vào danh sách
-//     //     products.push(products);
-
-//     //     // Lưu danh sách sản phẩm mới vào Local Storage
-//     //     localStorage.setItem('products', JSON.stringify(products));
-
-//     // // In thông tin sản phẩm vào console (bạn có thể thay thế bước này bằng việc gửi dữ liệu đến server)
-   
-
-//     // Xóa dữ liệu trong form sau khi thêm sản phẩm thành công
-//     document.getElementsByClassName('edit_item')[0].reset();
-// }
-// // saveBtn.addEventListener('click',addProduct)
-//  function displayProductList(){
-    
-//  }
 //  đăng xuất admin
 var logoutAdmin=document.getElementsByClassName('ti-power-off')
 function logoutAdminFct(){
@@ -122,115 +88,46 @@ function logoutAdminFct(){
 
 // Lấy danh sách đơn hàng từ Local Storage
 function renderOrderHistoryView() {
-const orders = JSON.parse(localStorage.getItem('orders')) || [];
-// localStorage.setItem('orderAll',JSON.stringify(orders))
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    const orderHistoryContainer = document.getElementById('order-history-container');
 
-// Hiển thị danh sách đơn hàng
-const orderHistoryContainer = document.getElementById('order-history-container');
+    if (orders.length > 0) {
+        let orderHtml = '<h2>Đơn Hàng Đã Đặt</h2>';
 
-if (orders.length > 0) {
-    let orderHtml = '<h2>Đơn Hàng Đã Đặt</h2>';
-    
-    
-    orders.forEach((order, index) => {
-        orderHtml += `<div class="order">
-            <div class="ti-arrow-circle-down"></div>
-            <h3>Đơn Hàng #${order.orderCode}</h3>
-            <p><strong>Tên:</strong> ${order.personalInfo.name}</p>
-            <p><strong>Số Điện Thoại:</strong> ${order.personalInfo.phone}</p>
-            <p><strong>Địa Chỉ:</strong> ${order.personalInfo.address}</p>
-            <!-- Thêm các trường thông tin khác của đơn hàng -->
-            <h4>Chi Tiết Đơn Hàng:</h4>
-            <ul>`;
-        
-        order.cartItems.forEach(item => {
-            orderHtml += `<li>${item.productInfo.name} - ${item.productInfo.count} - ${item.productInfo.price * item.productInfo.count}đ</li>`;
+        orders.forEach((order, index) => {
+            orderHtml += `<div class="order" id="order-${index}">
+                <div class="ti-arrow-circle-down" onclick="toggleOrder(${index})"></div>
+                <h3>Đơn Hàng #${order.orderCode}</h3>
+                <p><strong>Tên:</strong> ${order.personalInfo.name}</p>
+                <p><strong>Số Điện Thoại:</strong> ${order.personalInfo.phone}</p>
+                <p><strong>Địa Chỉ:</strong> ${order.personalInfo.address}</p>
+                <h4>Chi Tiết Đơn Hàng:</h4>
+                <ul>`;
+
+            order.cartItems.forEach(item => {
+                orderHtml += `<li>${item.productInfo.name} - ${item.productInfo.count} - ${item.productInfo.price * item.productInfo.count}đ</li>`;
+            });
+
+            orderHtml += `</ul></div>`;
         });
 
-        orderHtml += `</ul></div>`;
-    });
-
-    orderHistoryContainer.innerHTML = orderHtml;
-} else {
-    orderHistoryContainer.innerHTML = '<p>Không có đơn hàng nào.</p>';
+        orderHistoryContainer.innerHTML = orderHtml;
+    } else {
+        orderHistoryContainer.innerHTML = '<p>Không có đơn hàng nào.</p>';
+    }
 }
 
+function toggleOrder(index) {
+    const orderElement = document.getElementById(`order-${index}`);
+    orderElement.classList.toggle('open_order');
 }
 
+var order_admin = document.querySelectorAll('.order')
+var btnOderAdmin= document.querySelectorAll('.ti-arrow-circle-down')
 
-// doanh thu
-// Calculate weekly revenue
-function calculateWeeklyRevenue(orders) {
-    return calculateRevenue(orders, 'week');
-}
 
-// Calculate monthly revenue
-function calculateMonthlyRevenue(orders) {
-    return calculateRevenue(orders, 'month');
-}
+// hàm hiển thị ở bản điều khiển
 
-// Generic function to calculate revenue based on time period ('week' or 'month')
-function calculateRevenue(orders, timePeriod) {
-    const revenueData = {};
-
-    orders.forEach(order => {
-        const orderDate = new Date(order.orderTime);
-        const timeValue = timePeriod === 'week' ? getWeekNumber(orderDate) : orderDate.getMonth() + 1;
-
-        // Calculate revenue based on the time period
-        revenueData[timeValue] = (revenueData[timeValue] || 0) + calculateOrderTotal(order);
-    });
-
-    return revenueData;
-}
-
-// Display revenue on the interface
-function displayRevenue(revenueData) {
-    document.getElementById('week_sale').querySelector('.input_sale').value = revenueData.weeklyRevenue || 0;
-    document.getElementById('month_sale').querySelector('.input_sale').value = revenueData.monthlyRevenue || 0;
-}
-
-// Calculate total order amount
-function calculateOrderTotal(order) {
-    return order.cartItems.reduce((total, item) => total + item.productInfo.price * item.productInfo.count, 0);
-}
-
-// Get week number from date
-function getWeekNumber(date) {
-    const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
-    const pastDays = (date - firstDayOfYear) / 86400000; // 86400000 milliseconds in a day
-    return Math.ceil((pastDays + firstDayOfYear.getDay() + 1) / 7);
-}
-
-// Lấy danh sách đơn hàng từ Local Storage
-const orders = JSON.parse(localStorage.getItem('orders')) || [];
-
-// Tính toán doanh thu
-const weeklyRevenue = calculateWeeklyRevenue(orders);
-const monthlyRevenue = calculateMonthlyRevenue(orders);
-
-// Hiển thị doanh thu
-displayRevenue({ weeklyRevenue, monthlyRevenue });
-
-// doanh thu tổng
-// Calculate total revenue from all orders
-function calculateTotalRevenue(orders) {
-    return orders.reduce((total, order) => total + calculateOrderTotal(order), 0);
-}
-
-// Lấy danh sách đơn hàng từ Local Storage
-const order = JSON.parse(localStorage.getItem('orders')) || [];
-
-// Tính toán doanh thu tổng
-const totalRevenue = calculateTotalRevenue(order);
-
-// Hiển thị doanh thu tổng
-displayTotalRevenue(totalRevenue);
-
-// Function to display total revenue on the interface
-function displayTotalRevenue(totalRevenue) {
-    document.getElementById('total_sale').querySelector('.input_sale').value = totalRevenue || 0;
-}
 
 
 

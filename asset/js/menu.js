@@ -638,7 +638,8 @@ function addProduct() {
 
             // Cập nhật biến htmlProducts để hiển thị sản phẩm mới
             htmlProducts = [...products];
-
+            renderAllProductsInAdmin();
+            
             // taomenu();
             // ... (phần code khác)
 
@@ -659,11 +660,24 @@ function addProduct() {
         // Nếu người dùng không chọn hình ảnh, bạn có thể xử lý theo ý muốn của mình
         console.log("Người dùng chưa chọn hình ảnh.");
     }
+    
 
 }
 
-var saveBtn = document.getElementsByClassName('save')[0];
-saveBtn.addEventListener('click', addProduct);
+var saveBtnAdd = document.getElementsByClassName('save')[0];
+saveBtnAdd.addEventListener('click', function(){ 
+
+    var addForm = document.getElementById('add_form');
+    
+   
+    
+    addForm.style.display='none'
+    var product=addProduct();
+    addProductToAdminPage(product);
+    // renderAllProductsInAdmin()
+    
+   
+});
 
 // lịch sử đơn hàng đã đặt
 function renderOrderHistory() {
@@ -737,5 +751,35 @@ function generateOrderCode() {
 
     return `dh.${day}${month}${year}${randomFourDigitNumber()}`;
 }
+// thêm sản phẩm ở trang admin
+function addProductToAdminPage(product) {
+    var containerAdmin = document.getElementById('productList');
 
+    var newItem = document.createElement('div');
+    newItem.className = 'item';
+
+    newItem.innerHTML = `
+        <input type="image" src="${product.img}" name="img_item" class="img_itetm">
+        <div class="content_item">
+            <h3 class="name_item">${product.name}</h3>
+            <h5 class="mota">${product.description}</h5>
+            <p class="price_item">${product.price}vnd</p>
+        </div>
+        <div>
+            <input type="button" value="sửa" class="btn">
+            <input type="button" value="xóa" class="btn">
+        </div>
+    `;
+
+    containerAdmin.appendChild(newItem);
+    
+}
+function renderAllProductsInAdmin() {
+    var containerAdmin = document.getElementById('productList');
+    containerAdmin.innerHTML = '';  // Xóa nội dung cũ trước khi thêm sản phẩm mới
+
+    htmlProducts.forEach(function (products) {
+        addProductToAdminPage(products);
+    });
+}
 

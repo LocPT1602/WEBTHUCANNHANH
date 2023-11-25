@@ -264,7 +264,9 @@ function login(event) {
           sexSelect.disabled = true;
           birthdayInput.disabled = true;
           document.getElementsByClassName('login_input')[0].reset();
+          
           window.location.reload();
+          
         }
       }
       else {
@@ -289,6 +291,8 @@ document.addEventListener('DOMContentLoaded', function () {
       // Nếu là admin, chuyển sang trang admin
       document.getElementById('end-user').style.display = 'none'
       document.getElementsByClassName('admin-container')[0].style.display = 'flex'
+      renderAllProductsInAdmin();
+
 
 
     }
@@ -297,6 +301,10 @@ document.addEventListener('DOMContentLoaded', function () {
       loginIcon.style.display = 'none';
       user.textContent = logInAccount.fullName;
       LogOut.style.display = 'flex';
+      renderOrderHistory()
+      calculateTotalRevenue(orders)
+      
+
 
     }
   }

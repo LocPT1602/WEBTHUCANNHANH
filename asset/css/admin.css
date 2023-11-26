@@ -319,7 +319,7 @@ body {
 }
 /* CSS cho tiêu đề đơn hàng */
 .order h3 {
-    background-color: #4CAF50;
+    background-color: rgb(233, 40, 40);
     color: white;
     padding: 10px;
     margin: 0;

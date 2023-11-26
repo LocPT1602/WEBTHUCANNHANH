@@ -4,7 +4,7 @@ var homePage = document.getElementById('home_page');
 var menuPage = document.getElementById('menu_page'); // Thay thế bằng id tương ứng
 var salePage = document.getElementById('sale_page'); // Thay thế bằng id tương ứng
 var servicePage = document.getElementById('service_page'); // Thay thế bằng id tương ứng
-// var newsPage = document.getElementById('news_page'); // Thay thế bằng id tương ứứng
+// var searchPage = document.getElementById('search-page'); // Thay thế bằng id tương ứứng
 var contactPage = document.getElementById('contact');
 
 //btn_content
@@ -261,8 +261,6 @@ function login(event) {
           fullnameInput.disabled = true;
           phoneInput.disabled = true;
           emailInput.disabled = true;
-          sexSelect.disabled = true;
-          birthdayInput.disabled = true;
           document.getElementsByClassName('login_input')[0].reset();
           
           window.location.reload();
@@ -356,8 +354,7 @@ function regist(event) {
   var phoneNumber = document.getElementsByClassName('register_phone')[0].value;
   var email = document.getElementsByClassName('register_email')[0].value;
   var password = document.getElementsByClassName('register_password')[0].value;
-  var sexSelect = document.getElementById('sex_select').value;
-  var birthDay = document.getElementById('birthday').value;
+
 
   document.getElementById('fullnameMessage').textContent = '';
   document.getElementById('phoneMessage').textContent = '';
@@ -411,8 +408,6 @@ function regist(event) {
       phoneNumber: phoneNumber,
       email: email,
       password: password,
-      sexSelect: sexSelect,
-      birthDay: birthDay
     };
     returnLogin();
     inforAccount.push(account);
@@ -434,8 +429,7 @@ var saveBtn = document.getElementsByClassName('save_btn')[0];
 var fullnameInput = document.getElementsByClassName('fullname')[0];
 var phoneInput = document.getElementsByClassName('phone')[0];
 var emailInput = document.getElementsByClassName('email')[0];
-var sexSelect = document.getElementsByClassName('sex')[0];
-var birthdayInput = document.getElementsByClassName('birthday')[0];
+
 
 closeInformation.addEventListener('click', closeInformationForm);
 
@@ -451,11 +445,7 @@ function openInfor() {
   fullnameInput.value = logInAccount.fullName;
   phoneInput.value = logInAccount.phoneNumber;
   emailInput.value = logInAccount.email;
-  sexSelect.value = logInAccount.sexSelect;
-  const birthDate = new Date(logInAccount.birthDay);
-  const formattedBirthDate = birthDate.toISOString().split('T');
-
-  birthdayInput.value = formattedBirthDate[0];
+  renderOrderHistory();
 }
 
 function saveInformation(event) {
@@ -464,8 +454,7 @@ function saveInformation(event) {
   var fullnameValue = fullnameInput.value;
   var phoneValue = phoneInput.value;
   var emailValue = emailInput.value;
-  var sexValue = sexSelect.value;
-  var birthdayValue = birthdayInput.value;
+
 
   // Thực hiện lưu thông tin hoặc gửi yêu cầu AJAX tới máy chủ
 
@@ -473,8 +462,7 @@ function saveInformation(event) {
   console.log('Fullname:', fullnameValue);
   console.log('Phone:', phoneValue);
   console.log('Email:', emailValue);
-  console.log('Sex:', sexValue);
-  console.log('Birthday:', birthdayValue);
+
 }
 // edit infor
 var editBtn = document.getElementsByClassName('edit_btn')[0];
@@ -485,8 +473,6 @@ function editInformation() {
   fullnameInput.disabled = false;
   phoneInput.disabled = false;
   emailInput.disabled = false;
-  // sexSelect.disabled = false;
-  birthdayInput.disabled = false;
 
   // Thay đổi văn bản của nút "Sửa" thành "Lưu"
   editBtn.value = 'Lưu';
@@ -502,8 +488,6 @@ function saveEditedInformation() {
   var fullName = document.querySelector('.fullname').value;
   var phoneNumber = document.querySelector('.phone').value;
   var email = document.querySelector('.email').value;
-  // var sex = document.getElementById('sex').value;
-  var birthday = document.getElementById('birthday').value;
 
   // Tìm và cập nhật thông tin trong mảng inforAccount
   for (var i = 0; i < inforAccount.length; i++) {
@@ -512,19 +496,16 @@ function saveEditedInformation() {
       inforAccount[i].fullName = fullName;
       inforAccount[i].phoneNumber = phoneNumber;
       inforAccount[i].email = email;
-      // inforAccount[i].sexSelect = sex;
-      inforAccount[i].birthDay = birthday;
+
 
       // Lưu mảng đã cập nhật vào localStorage
       localStorage.setItem('accountData', JSON.stringify(inforAccount));
-      localStorage.setItem('loggedInAccount', JSON.stringify(inforAccount));
+      localStorage.setItem('loggedInAccount', JSON.stringify(inforAccount[i]));
       user.textContent = fullName;
       // Vô hiệu hóa việc chỉnh sửa thông tin trong các trường dữ liệu
       fullnameInput.disabled = true;
       phoneInput.disabled = true;
       emailInput.disabled = true;
-      // sexSelect.disabled = true;
-      birthdayInput.disabled = true;
 
       // Thay đổi văn bản của nút "Lưu" thành "Sửa"
       editBtn.value = 'Sửa';
@@ -545,9 +526,8 @@ function validateForm() {
   var name = document.getElementById('name').value;
   var phone = document.getElementById('phone').value;
   var address = document.getElementById('address').value;
-  var deliveryTime = document.getElementById('delivery-time').value;
 
-  if (!name || !phone || !address || !deliveryTime) {
+  if (!name || !phone || !address) {
       alert('Vui lòng điền đầy đủ thông tin!');
       return false;
   }
@@ -559,4 +539,5 @@ function validateForm() {
   window.location.href = 'payment.html';
   return false;
 }
+
 

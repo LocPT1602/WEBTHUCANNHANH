@@ -97,7 +97,7 @@ function renderOrderHistoryView() {
         orders.forEach((order, index) => {
             orderHtml += `<div class="order" id="order-${index}">
                 <div class="ti-arrow-circle-down" onclick="toggleOrder(${index})"></div>
-                <h3>Đơn Hàng #${order.orderCode} </h3>
+                <h3 id="${index}">Đơn Hàng #${order.orderCode} </h3>
                 <p><strong>Tên:</strong> ${order.personalInfo.name}</p>
                 <p><strong>Số Điện Thoại:</strong> ${order.personalInfo.phone}</p>
                 <p><strong>Địa Chỉ:</strong> ${order.personalInfo.address}</p>
@@ -114,10 +114,15 @@ function renderOrderHistoryView() {
             });
 
             orderHtml += `</ul></div>`;
-            
         });
 
         orderHistoryContainer.innerHTML = orderHtml;
+        orders.forEach((order, index) => {
+            if (order.status == 'Đã xử lí') {
+                document.getElementById(`${index}`).style = 'background-color: green';
+            }
+        })
+
     }
 }
 
@@ -137,8 +142,10 @@ function confirmOrder(index) {
     // Lưu lại danh sách đơn hàng đã cập nhật vào Local Storage
     localStorage.setItem('orders', JSON.stringify(orders));
 
+
     // Hiển thị lại danh sách đơn hàng
     renderOrderHistoryView();
+    document.querySelector(".head").style = 'background-color: green';
 
 }
 
@@ -376,8 +383,6 @@ function filterRevenue() {
 
 
 // trc khi lọc
-
-
 
 
 

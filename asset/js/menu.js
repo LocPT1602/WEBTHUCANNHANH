@@ -457,7 +457,7 @@ function searchProducts() {
     if (htmlProducts.length > 0) {
         // Nếu có sản phẩm phù hợp, hiển thị sản phẩm và ẩn thông báo "Không tìm thấy sản phẩm"
         // taomenu();
-        // document.getElementById('noResultMessage').style.display = 'none';
+
         renderProductsInPage(0);
         renderProducts();
     } else {
@@ -471,7 +471,7 @@ function searchProducts() {
 
 
 }
-function OpenCart() {
+function openOrder() {
     var loginForm = document.getElementById('login_form');
     let loggedInAccount = JSON.parse(localStorage.getItem('loggedInAccount'));
 
@@ -491,7 +491,8 @@ function OpenCart() {
             alert("giỏ hàng của bạn đang trống")
         }
         else {
-            document.getElementById('box_giohang').style.display = 'block'
+            document.getElementById('cart-modal').style.display = 'none';
+            document.getElementById('order-modal').style.display = 'block';
             renderProductsInOrderForm();
             closeModalCart()
             // deleteCart(0, cart.length);
@@ -505,7 +506,12 @@ function OpenCart() {
 // 
 function renderProductsInOrderForm() {
     const loggedInAccount = JSON.parse(localStorage.getItem('loggedInAccount'));
+    document.querySelector('#products-info #container').innerHTML = '';
 
+    document.querySelector('.input-group #name').value = loggedInAccount.fullName;
+    document.querySelector('.input-group #name').disabled = true;
+    document.querySelector('.input-group #phone').value = loggedInAccount.phoneNumber;
+    document.querySelector('.input-group #phone').disabled = true;
     // Lấy danh sách sản phẩm trong giỏ hàng từ Local Storage
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -514,45 +520,68 @@ function renderProductsInOrderForm() {
     let productsHtml = ``;
 
     for (let item of userCart) {
-        productsHtml += `<div class="cart-item-in-order-form">
-            <div class="item-img_cart ">
+        productsHtml += `<div class="product-wrapper">
+        <div class="order-product">
+            <div class="item-img">
                 <img src="${item.productInfo.img}" alt="">
             </div>
 
-            <div class="item-details">
-                <p class="item-name_cart ">${item.productInfo.name}</p>
-                <p class="item-price_cart">${item.productInfo.price}đ</p>
-                <p class="item-quantity_cart">${item.productInfo.count}</p>
-                <p class="item-total_cart">${item.productInfo.price * item.count}đ</p>
-                
+            <div class="item-name">
+                <p>${item.productInfo.name}</p>
             </div>
-        </div>`;
+                                            
+            <div class="item-price">
+                <p>${item.productInfo.price}đ</p>
+            </div>
+
+            
+            <div class="item-quantity">
+                <p>${item.count}</p>
+            </div>
+
+            <div class="item-total-price">
+                    <p>${item.count * item.productInfo.price}đ</p>
+            </div>
+  
+        </div>
+    </div>`;
     }
 
     // Thêm sản phẩm vào form thông tin khách hàng
-    document.querySelector('.thongTinKhachHang').innerHTML += productsHtml;
+    document.querySelector('#products-info #container').innerHTML += productsHtml;
 }
 
+
 // Gọi hàm để hiển thị sản phẩm trong form
-renderProductsInOrderForm();
+// renderProductsInOrderForm();
 //  xác nhận đặt hàng
 document.addEventListener("DOMContentLoaded", function () {
     // ... (Các đoạn mã khác)
 
     // Bắt sự kiện khi người dùng nhấn nút "Xác Nhận Đơn Hàng"
-    const submitButton = document.querySelector('.submit');
+    const submitButton = document.querySelector('#order-submit');
     renderOrderHistoryView();
+
+    // Tạo một đối tượng Date mới, đại diện cho thời điểm hiện tại
+    var ngayHienTai = new Date();
+
+    // Lấy thông tin ngày, tháng và năm từ đối tượng Date
+    var ngay = ngayHienTai.getDate();
+    var thang = ngayHienTai.getMonth() + 1; // Lưu ý: tháng bắt đầu từ 0, nên cộng thêm 1
+    var nam = ngayHienTai.getFullYear();
+
+    var time = nam+'-'+thang+'-'+ngay;
 
 
     submitButton.addEventListener('click', function () {
         
         // Bước 1: Trích xuất thông tin cá nhân từ form
         const personalInfo = {
-            name: document.getElementById('name').value,
-            phone: document.getElementById('phone').value,
-            address: document.getElementById('address').value,
-            paymentMethod: document.getElementById('payment').value,
-            deliveryTime: document.getElementById('delivery-time').value,
+            name: document.querySelector('.input-group #name').value,
+            phone: document.querySelector('.input-group #phone').value,
+            address: document.querySelector('.input-group #address').value,
+            paymentMethod: document.querySelector('.input-group #payment').value,
+            deliveryTime: time,
             notes: document.getElementById('notes').value,
         };
         const loggedInAccount = JSON.parse(localStorage.getItem('loggedInAccount'));
@@ -586,7 +615,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-        document.getElementById('box_giohang').style.display = 'none'
+        document.getElementById('order-modal').style.display = 'none';
         // renderOrderHistory();
 
     });
@@ -703,7 +732,7 @@ function renderOrderHistory() {
 
             orderHtml += `<div class="order" id="order-${index}">
             <div class="ti-arrow-circle-down" onclick="toggleOrder(${index})"></div>
-            <h3>Đơn Hàng #${order.orderCode}</h3>
+            <h3 id ="${index}">Đơn Hàng #${order.orderCode}</h3>
             <p><strong>Tên:</strong> ${order.personalInfo.name}</p>
             <p><strong>Số Điện Thoại:</strong> ${order.personalInfo.phone}</p>
             <p><strong>Địa Chỉ:</strong> ${order.personalInfo.address}</p>
@@ -719,15 +748,22 @@ function renderOrderHistory() {
             });
 
             orderHtml += `</ul></div>`;
+            // Hiển thị đơn hàng đã đặt
+            document.getElementById('order-history').innerHTML = orderHtml;
+
+            orders.forEach((order, index) => {
+                if (order.status == 'Đã xử lí') {
+                    document.getElementById(`${index}`).style = 'background-color: green';
+                }
+            })
         });
 
-        // Hiển thị đơn hàng đã đặt
-        document.getElementById('order-history').innerHTML = orderHtml;
     }
     else {
         console.error('Không có tài khoản đăng nhập.');
     }
 }
+
 
 // Gọi hàm để hiển thị đơn hàng đã đặt
 

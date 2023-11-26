@@ -108,6 +108,12 @@
     
 }
 
+.btn.register_btn {
+    height: 30px;
+    font-size: 20px;
+    line-height: 10px;
+}
+
 #register_form .body_form{
     height: 480px;
 }

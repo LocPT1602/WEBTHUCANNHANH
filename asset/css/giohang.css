@@ -1,153 +1,216 @@
-#box_giohang{
+* {
+    box-sizing: border-box;
+    
+}
+#order-modal {
     position: fixed;
     top: 0;
-    right: 0;
-    /* bottom: 0; */
     left: 0;
-    width: 100%;
-    background-color: #333333ab;
-    height: 100%;
-  
-   
+    right: 0;
+    bottom: 0;
+    background-color: rgba(94, 94, 94, 0.532);
     z-index: 5;
 }
-.gio-hang{
-    overflow-y:scroll;
-    position: relative;
-    border: 1px solid #ddd;
-    box-shadow: 2px 2px 4px #ddd;
-    padding: 20px;
+
+#oder-wrapper {
+    padding: 0;
+    margin: 50px auto;
     width: 80%;
-    height: 80%;
-    margin: 5% 10% ;
-    /* max-width: 1100px; */
+    height: 600px;
+    position: relative;
+    border: 1px solid #000000;
+    max-width: 1100px;
     background-color: #ffcc00;
     z-index: 5;
 }
 
-.gio-hang .tieuDe {
-    font-size: 30px;
-    color: #f53117;
-    margin-bottom: 20px;
+#order-header {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 5px 0px;
+    height: 50px;
 }
 
-.item-gio-hang {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+#order-header h1 {
+    padding:  0;
+    margin: 0;
+    font-size: 28px;
+    line-height: 50px;
 }
 
-.item-gio-hang .tieuDeItemGioHang {
-    margin-bottom: 20px;
-    font-weight: 600;
+
+#order-content {
+    height: 500px;
+    background-color: wheat;
+    overflow-y: auto;
+    padding-left: 20px;
 }
 
-.item-gio-hang .hinhAnh img {
-    width: 60px;
-    height: 60px;
-
+#customer-info {
+    padding: 5px 0px;
 }
 
-.item-gio-hang .hinhAnh {
-    width: 60px;
+#customer-info p {
+    font-size: 23px;
+    margin: 0;
+    padding-bottom: 5px;
+    font-weight: 300;
+    text-decoration: underline;
 }
 
-.item-gio-hang .input {
+#customer-info .input-group {
+    font-size: 18px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+#customer-info .input-group input {
+    width: 400px;
+    height: 100%;
+    border: none;
+    position: absolute;
+    left: 25%;
+    
+}
+
+#products-info {
+    padding-top: 5px;
+}
+#products-info p {
+    font-size: 23px;
+    padding: 0;
+    margin: 0;
+    text-decoration: underline;
+}
+
+#products-info #label {
+    position: relative;
+    padding-top: 5px;
+    height: 30px;
+}
+
+#products-info #label p {
+    font-size: 20px;
+    position: absolute;
+    text-decoration: none;            
+}
+
+#products-info #label #name {
+    left: 0px;
+}
+
+#products-info #label #price {
+    left: 50%;
+}
+
+#products-info #label #quantity {
+    left: 70%;
+}
+
+#products-info #label #total {
+    left: 80%;
+}
+
+#products-info #container {
+    margin: 5px 0px;
+    width: 100%;
+}
+#products-info #container p {
+    text-decoration: none;
+}
+
+#products-info #container .product-wrapper {
     width: 100%;
 }
 
-.item-gio-hang .hinhAnh,
-.soLuong,
-.tongTien,
-.hanhDong {
-    flex: 1;
-    margin-left: 20px;
+#products-info #container .product-wrapper .order-product {
+    position: relative;
+    width: 100%;
+    height: 70px;
+    margin: 5px 0px;
+}
+#products-info #container .product-wrapper .order-product p {
+    font-size: 18px;
 }
 
-.item-gio-hang .gia {
-    flex: 2;
+.order-product .item-img {
+    width: 100px;
+    height: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
 }
-
-.item-gio-hang .ten {
-    flex: 3;
-}
-
-.item-gio-hang .gia .giaGoc {
-    font-size: 12px;
-    text-decoration: line-through;
-    color: #aaa;
-}
-
-.item-gio-hang .gia .giaBan {
-    color: #f7452E;
-}
-
-.item-gio-hang .hanhDong i:hover {
-    color: #f7452E;
-}
-
-.item-gio-hang .hanhDong i {
-    color: black;
-}
-
-main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-form {
-    margin: 0;
-    padding: 0;
-}
-
-h2 {
-    font-size: 20;
-    text-align: center;
-}
-
-.input-group {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-label {
-    font-weight: bold;
-}
-
-.submit{
-    background-color: #333;
-    color: #ffcc00;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-.cart-item-in-order-form{
-    display: flex;
-    padding-top: 20px;
-    border-bottom: #333 solid 2px;
-}
-.item-img_cart{
-    width: 200px;   
-    height: 150px;
-}
-.item-img_cart>img{
+.order-product .item-img img {
     width: 100%;
     height: 100%;
-}
-.item-details{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.item-details>p {
-    display: flex;
-    padding-left: 70px;
-    width: 145px;
-    justify-content: center;
+    border-radius: 20px;
 }
 
+.order-product .item-name {
+    position: absolute;
+    left: 15%;
+    font-size: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
+.order-product .item-price {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.order-product .item-quantity {
+    position: absolute;
+    left: 70%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.order-product .item-total-price {
+    position: absolute;
+    left: 80%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#order-footer {
+    width: 100%;
+    height: 50px;
+    position: relative;
+
+}
+
+#order-footer input {
+    width: 120px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: white;
+    font-size: 18px;
+    color: black;
+    border: 2px black solid;
+}
+
+#order-footer input:hover {
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+#order-footer #order-back {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#order-footer #order-submit {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0;
+}

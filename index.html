@@ -219,6 +219,11 @@
 
         </div>
         <!-- kết thúc thực đơn -->
+
+        <div id="search_page">
+
+        </div>
+
         <!-- khuyến mãi -->
         <div id="sale_page">
             <div class="banner_sale">
@@ -813,15 +818,6 @@
                         <div class="error_message" id="mailMessage"></div>
                         <input type="password" placeholder="password" class="login_input_infor register_password">
                         <div class="error_message" id="passwordMessage"></div>
-                        <div class="select_inform">
-                            <select name="giới tính" id="sex_select">
-                                <option value="">chọn giới tính</option>
-                                <option value="nam">Nam</option>
-                                <option value="nu">Nữ</option>
-                            </select>
-                            <p>ngày sinh: </p>
-                            <input type="date" id="birthday" placeholder="ngày sinh">
-                        </div>
                         <input type="submit" value="register" class="btn register_btn">
                         <div class="forget_register">
                             <a href="#" class="login_return">
@@ -844,15 +840,6 @@
                 <div class="body_form">
                     <form action="" class="login_input">
                         <input type="text" placeholder="full name" class="login_input_infor register_name">
-                        <div class="select_inform">
-                            <select name="giới tính" id="sex_select">
-                                <option value="">chọn giới tính</option>
-                                <option value="nam">Nam</option>
-                                <option value="nu">Nữ</option>
-                            </select>
-                            <p>ngày sinh: </p>
-                            <input type="date" id="birthday" placeholder="ngày sinh">
-                        </div>
                         <input type="submit" value="submit" class="btn register_btn">
                         <div class="forget_register">
                             <a href="#" class="login_return">
@@ -876,28 +863,21 @@
                     <form action="" class="information-detail">
                         <div class="input_detail_infor">
                             <label for="" class="title_input_infor">fullname:</label>
-                            <input type="text" class="fullname login_input_infor">
+                            <input type="text" class="fullname login_input_infor" disabled="true">
 
                         </div>
                         <div class="input_detail_infor">
                             <label for="" class="title_input_infor">phone:</label>
-                            <input type="text" class="phone login_input_infor">
+                            <input type="text" class="phone login_input_infor" disabled="true">
 
                         </div>
                         <div class="input_detail_infor">
                             <label for="" class="title_input_infor">email:</label>
-                            <input type="text" class="email login_input_infor">
+                            <input type="text" class="email login_input_infor" disabled="true">
 
                         </div>
-                        <div class="input_detail_infor">
-                            <label for="" class="title_input_infor">sex</label>
-                            <input type="text" class="sex login_input_infor">
-                        </div>
-                        <div class="input_detail_infor">
-                            <label for="" class="title_input_infor">ngày sinh</label>
-                            <input type="text" class="birthday login_input_infor">
-                        </div>
-                        <input type="button" value="sửa" class="btn edit_btn">
+                        
+                        <input type="button" value="sửa" class="btn edit_btn" style="cursor: pointer;">
 
 
                     </form>
@@ -932,7 +912,7 @@
                     <div id="cart-total-price">
 
                     </div>
-                    <button onclick="OpenCart()" class="submit-cart">Đặt hàng</button>
+                    <button onclick="openOrder()" class="submit-cart">Đặt hàng</button>
                 </div>
 
             </div>
@@ -943,70 +923,68 @@
 
         </div>
         <!-- open đặt hàng -->
-        <div id="box_giohang" style="display: none;">
-            <div class="gio-hang" id="gio-hang">
-                <h1 class="tieuDe">Chi tiết đơn hàng </h1>
-                <div class="thongTinKhachHang">
-                    <section id="order-form">
-                        <h2>Thông Tin Cá Nhân</h2>
-                        <form class="infor_order" onsubmit="return validateForm()">
-                            <div class="input-group">
-                                <label for="name">Họ và Tên:</label>
-                                <input type="text" id="name" required>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="phone">Số Điện Thoại:</label>
-                                <input type="tel" id="phone" required>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="address">Địa Chỉ:</label>
-                                <input type="text" id="address" required>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="payment">Phương Thức Thanh Toán:</label>
-                                <select id="payment">
-                                    <option value="chuyenkhoan">Chuyển Khoản</option>
-                                    <option value="khinhanhang">Thanh Toán Khi Nhận Hàng</option>
-                                </select>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="delivery-time">Thời Gian Giao Hàng:</label>
-                                <input type="datetime-local" id="delivery-time" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="notes">Ghi Chú Đơn Hàng:</label>
-                                <textarea id="notes" name="notes" rows="4" cols="50"></textarea>
-                            </div> <!-- Danh sách item giỏ hàng -->
-                            <div class="cart-item-in-order-form" style="height:fit-content ;">
-                                <div class="item-img_cart " style="height: fit-content;">
-
-                                </div>
-
-                                <div class="item-details">
-                                    <p class="item-name_cart ">sản phẩm</p>
-                                    <p class="item-price_cart">Đơn giá</p>
-                                    <p class="item-quantity_cart">Số lượng</p>
-                                    <p class="item-total_cart">Tổng tiền</p>
-                                    <input type="button" value="thao tác">
-                                </div>
-                            </div>
+        <div id="order-modal" style="display: none;">
+            <div id="oder-wrapper">
+                <div id="order-header">
+                    <h1 class="tieuDe">Chi tiết đơn hàng </h1>
                 </div>
-
-                <button class="return" type="button">quay lại</button>
-                <button class="submit" type="submit">Xác Nhận Đơn Hàng</button>
-
+    
+                <form action="" id="order-form"> 
+                    <div id="order-content">
+                            <div id="customer-info">
+    
+                                <p>Thông tin khách hàng</p>
+                                <div class="input-group">
+                                    <label for="name">Họ và Tên</label>
+                                    <input type="text" id="name" required>
+                                </div>
+    
+                                <div class="input-group">
+                                    <label for="phone">Số Điện Thoại</label>
+                                    <input type="tel" id="phone" required>
+                                </div>
+    
+                                <div class="input-group">
+                                    <label for="address">Địa Chỉ</label>
+                                    <input type="text" id="address" required>
+                                </div>
+    
+                                <div class="input-group">
+                                    <label for="payment">Phương Thức Thanh Toán</label>
+                                    <select id="payment" style="position: absolute; left: 25%; height: 100%; width: 400px;">
+                                        <option value="chuyenkhoan">Chuyển Khoản</option>
+                                        <option value="khinhanhang">Thanh Toán Khi Nhận Hàng</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="notes">Ghi Chú Đơn Hàng</label>
+                                    <textarea id="notes" name="notes" style="position: absolute; left: 25%; height: 100%; width: 400px;" ></textarea>
+                                </div>
+    
+                            </div>
+    
+                            <div id="products-info">
+                                <p>Chi Tiết Sản Phẩm</p>
+                                <div id="label">
+                                    <p id="name">Sản phẩm</p>
+                                    <p id="price">Đơn giá</p>
+                                    <p id="quantity">Số lượng</p>
+                                    <p id="total">Tổng tiền</p>
+                                </div>
+    
+                                <div id="container">
+                                    
+                                </div>
+                            </div>
+                    </div>
+    
+                    <div id="order-footer">
+                        <input type="button" id="order-back" value="Quay lại" onclick="closeModalOrder()">
+                        <input type="submit" id="order-submit" value="Xác nhận">
+                    </div>
                 </form>
-                </section>
-
+    
             </div>
-            <form class="form_donhang">
-
-            </form>
-
         </div>
         <!-- kết thúc đặt hàng -->
     </div>

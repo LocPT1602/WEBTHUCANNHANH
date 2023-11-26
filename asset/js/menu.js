@@ -561,7 +561,8 @@ document.addEventListener("DOMContentLoaded", function () {
             accountInfo: loggedInAccount,
             personalInfo: personalInfo,
             cartItems: cart, // Giả sử giỏ hàng đã được cập nhật trước đó
-            orderCode: generateOrderCode()  
+            orderCode: generateOrderCode(),
+            status: 'Chưa xử lí'
         };
         updateOrderHistory(orderDetails);
 

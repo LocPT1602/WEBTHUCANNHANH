@@ -102,18 +102,18 @@ function renderOrderHistoryView() {
                 <p><strong>Số Điện Thoại:</strong> ${order.personalInfo.phone}</p>
                 <p><strong>Địa Chỉ:</strong> ${order.personalInfo.address}</p>
                 <p><strong>thời gian đặt hàng:</strong>${order.personalInfo.deliveryTime}</p>
-                <p><strong>Trạng Thái:</strong> <span class="order-status">${order.status === 'confirmed' ? 'Đã Xác Nhận' : 'Chưa Xác Nhận'}</span></p>
+                <p><strong>Trạng Thái:</strong> <span class="order-status">${order.status}</span></p>
 
                 <h4>Chi Tiết Đơn Hàng:</h4>
                 <ul>`
-                ;
-
+            if (order.status == 'Chưa xử lí') {
+                orderHtml += `<button class="confirm-button" onclick="confirmOrder(${index})">Xác Nhận</button>`
+            }
             order.cartItems.forEach(item => {
                 orderHtml += `<li>${item.productInfo.name} - ${item.productInfo.count} - ${item.productInfo.price * item.productInfo.count}đ</li>`;
             });
 
             orderHtml += `</ul></div>`;
-            orderHtml += `<button class="confirm-button" onclick="confirmOrder(${index})">Xác Nhận</button>`
             
         });
 
@@ -132,7 +132,7 @@ function confirmOrder(index) {
     const orders = JSON.parse(localStorage.getItem('orders')) || [];
     
     // Đặt trạng thái xác nhận cho đơn hàng
-    orders[index].status = 'confirmed';
+    orders[index].status = 'Đã xử lí';
 
     // Lưu lại danh sách đơn hàng đã cập nhật vào Local Storage
     localStorage.setItem('orders', JSON.stringify(orders));
@@ -175,7 +175,7 @@ function renderFilteredOrders(filteredOrders) {
                 <p><strong>Số Điện Thoại:</strong> ${order.personalInfo.phone}</p>
                 <p><strong>Địa Chỉ:</strong> ${order.personalInfo.address}</p>
                 <p><strong>thời gian đặt hàng:</strong>${order.personalInfo.deliveryTime}</p>
-                <p><strong>Trạng Thái:</strong> <span class="order-status">${order.status === 'confirmed' ? 'Đã Xác Nhận' : 'Chưa Xác Nhận'}</span></p>
+                <p><strong>Trạng Thái:</strong> <span class="order-status">${order.status == 'confirmed' ? 'Đã Xác Nhận' : 'Chưa Xác Nhận'}</span></p>
                 <h4>Chi Tiết Đơn Hàng:</h4>
                 <ul>`;
 

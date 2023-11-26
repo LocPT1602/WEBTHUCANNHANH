@@ -929,7 +929,7 @@
                     <h1 class="tieuDe">Chi tiết đơn hàng </h1>
                 </div>
     
-                <form action="" id="order-form"> 
+                <form action="" id="order-form" onsubmit="return validateForm()"> 
                     <div id="order-content">
                             <div id="customer-info">
     
@@ -977,7 +977,7 @@
                                 </div>
                             </div>
                     </div>
-    
+                    <!-- <button>dădaw</button> -->
                     <div id="order-footer">
                         <input type="button" id="order-back" value="Quay lại" onclick="closeModalOrder()">
                         <input type="submit" id="order-submit" value="Xác nhận">

@@ -522,11 +522,12 @@ function saveEditedInformation() {
 //open đặt hàng
 // lịch sử đơn hàng
 // validator
-function validateForm() {
-  var name = document.getElementById('name').value;
-  var phone = document.getElementById('phone').value;
-  var address = document.getElementById('address').value;
-
+function validateForm(event) {
+  event.preventDefault();
+  var name = document.querySelector('.input-group #name').value;
+  var phone = document.querySelector('.input-group #phone').value;
+  var address = document.querySelector('.input-group #address').value;
+  console.log(address)
   if (!name || !phone || !address) {
       alert('Vui lòng điền đầy đủ thông tin!');
       return false;
@@ -537,7 +538,7 @@ function validateForm() {
       return false;
   }
   window.location.href = 'payment.html';
-  return false;
+  return true;
 }
 
 

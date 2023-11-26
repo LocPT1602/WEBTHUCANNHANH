@@ -574,7 +574,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     submitButton.addEventListener('click', function () {
-        
+        validateForm();
         // Bước 1: Trích xuất thông tin cá nhân từ form
         const personalInfo = {
             name: document.querySelector('.input-group #name').value,
@@ -622,6 +622,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 });
+
+function closeModalOrder() {
+    document.querySelector("#order-modal").style = 'display: none';
+    document.querySelector("#cart-modal").style = 'display: block';
+}
+
 // thêm sản phẩm Admin
 function addProduct() {
     // Lấy giá trị từ các trường input

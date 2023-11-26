@@ -1078,7 +1078,7 @@
 
                                 <h2>số lượng sản phẩm</h2>
 
-                                <input type="text" class="input_sale product_revenue">
+                                <input type="text" readonly class="input_sale product_revenue">
                             </div>
                         </div>
                         <div id="sum_order" class="dashboard_item">
@@ -1086,25 +1086,25 @@
                             <div class="content_dashboard_item">
                                 <h2>số lượng đơn hàng</h2>
 
-                                <input type="text" class="input_sale order_revenue">
+                                <input type="text" readonly class="input_sale order_revenue">
                             </div>
                         </div>
-                        <div id="week_sale" class="dashboard_item">
+                        <div id="revenueall" class="dashboard_item">
                             <div class="ti-money icon_dashboard"></div>
                             <div class="content_dashboard_item">
 
-                                <h2>doanh thu tuẩn</h2>
+                                <h2>doanh thu</h2>
 
-                                <input type="text" class="input_sale week_revenue">
+                                <input type="text" readonly class="input_sale revenue">
                             </div>
                         </div>
                         <div id="month_sale" class="dashboard_item">
                             <div class="ti-money icon_dashboard"></div>
                             <div class="content_dashboard_item">
 
-                                <h2>daonh thu tháng</h2>
+                                <h2>doanh thu tháng</h2>
 
-                                <input type="text" class="input_sale month_revenue">
+                                <input type="text" readonly class="input_sale month_revenue">
                             </div>
                         </div>
                     </div>
@@ -1149,13 +1149,35 @@
                     </div>
                 </div>
                 <div id="order-history-container">
+                    <div id="order_filt">
+                        <label for="start-date">Từ ngày:</label>
+                        <input type="date" id="start-date" name="start-date">
 
+                        <label for="end-date">Đến ngày:</label>
+                        <input type="date" id="end-date" name="end-date">
+
+                        <button onclick="filterOrdersByDate()">Lọc</button>
+                    </div>
+                    <div id="order-history-content">
+
+                    </div>
                 </div>
                 <div id="total_sale">
-                    <input type="text" class="input_sale" readonly>
+                    <!-- <input type="text" readonly class="input_sale" readonly> -->
+                    <label for="startDate">Từ ngày:</label>
+                    <input type="date" id="startDate">
+
+                    <label for="endDate">Đến ngày:</label>
+                    <input type="date" id="endDate">
+
+                    <button onclick="filterRevenue()">Lọc Doanh Thu</button>
+
+                    <div id="result">
+
+                    </div>
                 </div>
 
-                <!-- <div id="edit_form" class="form_item">
+                <div id="edit_form" class="form_item">
                 <div id="header_form">sản phẩm</div>
                 <form action="" class="edit_item">
                     <label for="" class="input_label">hình ảnh:</label>
@@ -1170,7 +1192,7 @@
                     <input type="button" value="lưu" class="save">
                     
 
-                </form> -->
+                </form>
             </div>
 
         </div>

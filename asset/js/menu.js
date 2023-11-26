@@ -700,7 +700,8 @@ function renderOrderHistory() {
         userOrders.forEach((order, index) => {
             
 
-            orderHtml += `<div class="order">
+            orderHtml += `<div class="order" id="order-${index}">
+            <div class="ti-arrow-circle-down" onclick="toggleOrder(${index})"></div>
             <h3>Đơn Hàng #${order.orderCode}</h3>
             <p><strong>Tên:</strong> ${order.personalInfo.name}</p>
             <p><strong>Số Điện Thoại:</strong> ${order.personalInfo.phone}</p>
@@ -766,8 +767,8 @@ function addProductToAdminPage(product) {
             <p class="price_item">${product.price}vnd</p>
         </div>
         <div>
-            <input type="button" value="sửa" class="btn">
-            <input type="button" value="xóa" class="btn">
+            <input type="button" value="sửa" class="btn" onclick="editProduct(${product.id})">
+            <input type="button" value="xóa" class="btn" onclick="deleteProduct(${product.id})">
         </div>
     `;
 
@@ -782,4 +783,6 @@ function renderAllProductsInAdmin() {
         addProductToAdminPage(products);
     });
 }
+// xóa sản phẩm trong admin
 
+// sửa sản phẩm trong admin

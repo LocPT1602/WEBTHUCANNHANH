@@ -274,9 +274,12 @@ body {
     justify-content: space-around;
 }
 
-.input_sale{
+.input_sale {
     height: 50px;
     width: 100%;
+    font-size: larger;
+    text-align: center;
+    border: none;
 }
 /* css lịch sử đặt hàng */
 #order-history {
@@ -290,6 +293,7 @@ body {
 
 /* CSS cho mỗi đơn hàng */
 .order {
+    position: relative;
     margin-bottom: 20px;
     overflow: hidden;
     height: 42px;
@@ -300,7 +304,7 @@ body {
     overflow:visible;
 }
 .ti-arrow-circle-down {
-    position: fixed;
+    position: absolute;
     right: 0;
     padding: 7px;
     color: #fffefc;

@@ -335,7 +335,10 @@ function logoutFunction() {
   LogOut.style.display = 'none'
   loginIcon.style.display = 'block'
   loginIcon.textContent = ''
+  deleteCart(0, cart.length);
   alert("bạn đã đăng xuất")
+  location.reload()
+  
 
 }
 logOutBtn.addEventListener('click', logoutFunction)

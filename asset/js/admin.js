@@ -159,6 +159,11 @@ function filterOrdersByDate() {
     const filteredOrders = filterOrdersByDateRange(startDate, endDate);
 
     renderFilteredOrders(filteredOrders);
+    orders.forEach((order, index) => {
+        if (order.status == 'Đã xử lí') {
+            document.getElementById(`${index}`).style = 'background-color: green';
+        }
+    })
 }
 
 function filterOrdersByDateRange(startDate, endDate) {
@@ -170,19 +175,18 @@ function filterOrdersByDateRange(startDate, endDate) {
 
 function renderFilteredOrders(filteredOrders) {
     const orderHistoryContainer = document.getElementById('order-history-content');
-
     if (filteredOrders.length > 0) {
         let orderHtml = '<h2>Đơn Hàng Đã Đặt</h2>';
 
         filteredOrders.forEach((order, index) => {
             orderHtml += `<div class="order" id="order-${index}">
                 <div class="ti-arrow-circle-down" onclick="toggleOrder(${index})"></div>
-                <h3>Đơn Hàng #${order.orderCode}</h3>
+                <h3 id="${index}">Đơn Hàng #${order.orderCode}</h3>
                 <p><strong>Tên:</strong> ${order.personalInfo.name}</p>
                 <p><strong>Số Điện Thoại:</strong> ${order.personalInfo.phone}</p>
                 <p><strong>Địa Chỉ:</strong> ${order.personalInfo.address}</p>
                 <p><strong>thời gian đặt hàng:</strong>${order.personalInfo.deliveryTime}</p>
-                <p><strong>Trạng Thái:</strong> <span class="order-status">${order.status == 'confirmed' ? 'Đã Xác Nhận' : 'Chưa Xác Nhận'}</span></p>
+                <p><strong>Trạng Thái:</strong> <span class="order-status">${order.status}</span></p>
                 <h4>Chi Tiết Đơn Hàng:</h4>
                 <ul>`;
 
@@ -191,10 +195,10 @@ function renderFilteredOrders(filteredOrders) {
             });
 
             orderHtml += `</ul></div>`;
+            orderHistoryContainer.innerHTML = orderHtml;
             
         });
 
-        orderHistoryContainer.innerHTML = orderHtml;
     } else {
         orderHistoryContainer.innerHTML = '<p>Không có đơn hàng nào.</p>';
     }

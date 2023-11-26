@@ -522,8 +522,7 @@ function saveEditedInformation() {
 //open đặt hàng
 // lịch sử đơn hàng
 // validator
-function validateForm(event) {
-  event.preventDefault();
+function validateForm() {
   var name = document.querySelector('.input-group #name').value;
   var phone = document.querySelector('.input-group #phone').value;
   var address = document.querySelector('.input-group #address').value;

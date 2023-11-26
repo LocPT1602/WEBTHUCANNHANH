@@ -292,6 +292,8 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('end-user').style.display = 'none'
       document.getElementsByClassName('admin-container')[0].style.display = 'flex'
       renderAllProductsInAdmin();
+      
+      
 
 
 
@@ -538,5 +540,23 @@ function saveEditedInformation() {
 }
 //open đặt hàng
 // lịch sử đơn hàng
+// validator
+function validateForm() {
+  var name = document.getElementById('name').value;
+  var phone = document.getElementById('phone').value;
+  var address = document.getElementById('address').value;
+  var deliveryTime = document.getElementById('delivery-time').value;
 
+  if (!name || !phone || !address || !deliveryTime) {
+      alert('Vui lòng điền đầy đủ thông tin!');
+      return false;
+  }
+
+  if (phone.length !== 10 || !/^\d+$/.test(phone)) {
+      alert('Vui lòng nhập số điện thoại hợp lệ gồm 10 chữ số!');
+      return false;
+  }
+  window.location.href = 'payment.html';
+  return false;
+}
 

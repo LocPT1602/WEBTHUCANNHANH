@@ -709,6 +709,7 @@ function renderOrderHistory() {
             <p><strong>Phương Thức Thanh Toán:</strong> ${order.personalInfo.paymentMethod}</p>
             <p><strong>Thời Gian Giao Hàng:</strong> ${order.personalInfo.deliveryTime}</p>
             <p><strong>Ghi Chú:</strong> ${order.personalInfo.notes}</p>
+            <p><strong>Trạng Thái:</strong> ${order.status}</p>
             <h4>Chi Tiết Đơn Hàng</h4>
             <ul>`;
 
@@ -767,8 +768,8 @@ function addProductToAdminPage(product) {
             <p class="price_item">${product.price}vnd</p>
         </div>
         <div>
-            <input type="button" value="sửa" class="btn" onclick="editProduct(${product.id})">
-            <input type="button" value="xóa" class="btn" onclick="deleteProduct(${product.id})">
+        <button >Sửa</button>
+        <button class="delProduct" onclick="deleteProduct(${products.indexOf(product)})" >Xóa</button>
         </div>
     `;
 
@@ -780,9 +781,25 @@ function renderAllProductsInAdmin() {
     containerAdmin.innerHTML = '';  // Xóa nội dung cũ trước khi thêm sản phẩm mới
 
     htmlProducts.forEach(function (products) {
+        
+
         addProductToAdminPage(products);
     });
 }
 // xóa sản phẩm trong admin
+function deleteProduct(index) {
+    
 
+    const confirmed = confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');
+    if (confirmed) {
+        
+        products.splice(index, 1);
+    }
+    localStorage.setItem('products', JSON.stringify(products));
+    htmlProducts = [...products];
+    renderAllProductsInAdmin();
+}
+    
+
+ 
 // sửa sản phẩm trong admin

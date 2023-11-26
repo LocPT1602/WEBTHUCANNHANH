@@ -367,8 +367,8 @@ function regist(event) {
     return false;
   }
 
-  if (phoneNumber.trim() === '') {
-    document.getElementById('phoneMessage').textContent = 'Vui lòng nhập số điện thoại.';
+  if (!validatePhoneNumber(phoneNumber)) {
+    document.getElementById('phoneMessage').textContent = 'Vui lòng nhập số điện thoại( 10 chữ số).';
     document.getElementsByClassName('register_phone')[0].classList.add('error-input');
     return false;
   }
@@ -388,6 +388,10 @@ function regist(event) {
     document.getElementsByClassName('register_password')[0].classList.add('error-input');
     return false;
   }
+  function validatePhoneNumber(phoneNumber) {
+    const phoneRegex = /^\d{10}$/;
+    return phoneNumber.trim() !== '' && phoneRegex.test(phoneNumber);
+}
 
 
 
@@ -536,7 +540,6 @@ function validateForm() {
       alert('Vui lòng nhập số điện thoại hợp lệ gồm 10 chữ số!');
       return false;
   }
-  window.location.href = 'payment.html';
   return true;
 }
 

@@ -403,6 +403,10 @@ body {
     padding: 0 20px;
 }
 .confirm-button {
-    position: absolute;
+    /* position: absolute; */
     right: 60px;
+    margin: 0 10px 10px 10px;
+    font-size: larger;
+    /* border: none; */
+    padding: 10px;
 }

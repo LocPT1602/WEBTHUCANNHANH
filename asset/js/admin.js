@@ -106,14 +106,15 @@ function renderOrderHistoryView() {
 
                 <h4>Chi Tiết Đơn Hàng:</h4>
                 <ul>`
-            if (order.status == 'Chưa xử lí') {
-                orderHtml += `<button class="confirm-button" onclick="confirmOrder(${index})">Xác Nhận</button>`
-            }
+            
             order.cartItems.forEach(item => {
                 orderHtml += `<li>${item.productInfo.name} - ${item.productInfo.count} - ${item.productInfo.price * item.productInfo.count}đ</li>`;
             });
 
             orderHtml += `</ul></div>`;
+            if (order.status == 'Chưa xử lí') {
+                orderHtml += `<button class="confirm-button" onclick="confirmOrder(${index})">Xác Nhận</button>`
+            }
         });
 
         orderHistoryContainer.innerHTML = orderHtml;
@@ -261,14 +262,15 @@ function calculateMonthlyRevenue(orders) {
 // Sử dụng hàm calculateMonthlyRevenue với danh sách đơn hàng của bạn
 // doanh thu tổng
 // Hàm tính tổng doanh thu từ toàn bộ danh sách đơn hàng
-function calculateTotalRevenue(orders) {
-    // Sử dụng reduce để tính tổng doanh thu từ mỗi đơn hàng
-    const totalRevenue = orders.reduce((total, order) => {
-        return total + calculateOrderTotal(order);
-    }, 0);
+// function calculateTotalRevenue(orders) {
+//     // const orders = JSON.parse(localStorage.getItem('orders'))
+//     // Sử dụng reduce để tính tổng doanh thu từ mỗi đơn hàng
+//     const totalRevenue = orders.reduce((total, order) => {
+//         return total + calculateOrderTotal(order);
+//     }, 0);
 
-    return totalRevenue;
-}
+//     return totalRevenue;
+// }
 
 
 
@@ -285,12 +287,11 @@ document.getElementById('sum_order').querySelector('.order_revenue').value = tot
 const monthlyRevenue = calculateMonthlyRevenue(orders);
 document.getElementById('month_sale').querySelector('.month_revenue').value = monthlyRevenue || 0;
 
-const Revenue = calculateTotalRevenue(orders);
-document.getElementById('revenueall').querySelector('.revenue').value = Revenue || 0;
+var Revenue = calculateTotalRevenue(orders);
 
 // lọc doanh thu theo thời gian
 // Hàm tính tổng doanh thu của từng loại sản phẩm
-function calculateTotalRevenue() {
+function calculateTotalRevenue(orders) {
     const totalRevenueByProductType = {
         '0': 0, // Loại 0
         '1': 0, // Loại 1
@@ -306,9 +307,15 @@ function calculateTotalRevenue() {
         });
     });
 
-    // Hiển thị tổng doanh thu
+    // Tính tổng doanh thu cho tất cả các loại sản phẩm
+    const totalRevenue = totalRevenueByProductType['0'] + totalRevenueByProductType['1'] +
+                         totalRevenueByProductType['2'] + totalRevenueByProductType['3'];
+
+    // Hiển thị tổng doanh thu và các loại sản phẩm
+    document.getElementById('revenueall').querySelector('.revenue').value = totalRevenue || 0;
     displayRevenue(totalRevenueByProductType);
 }
+
 
 // Hàm hiển thị doanh thu
 function displayRevenue(revenueByProductType) {
@@ -316,7 +323,7 @@ function displayRevenue(revenueByProductType) {
 
     // Hiển thị số tiền từng loại sản phẩm
     resultElement.innerHTML = `
-    <h3 class="revenuetitle">Doanh thu từ 2023-01-01 đến ${new Date().toISOString().split('T')[0]}</h3>
+    <h3 class="revenuetitle">Doanh thu</h3>
     <ul class="thongke">
         <li class="typeItem">
             <lable><i class="fa-solid fa-user-large"></i> combo lẻ 1</lable>

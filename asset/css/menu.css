@@ -22,7 +22,7 @@
     top: 80px;
     text-transform: uppercase;
     border-radius: 4px;
-    z-index: 1;
+    z-index: 2;
 }
 
 #nav-container {
@@ -76,7 +76,7 @@
     color: #3f3f3fd9;
 }
 #menu-content {
-    margin-top: 150px;
+    margin-top: 200px;
     width: 100%; 
     align-items: center;
     background-color: #ffffff;
@@ -88,7 +88,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
-    margin-top: 80px;
+    /* margin-top: 80px; */
 }
 
 #content-container .product {
@@ -602,3 +602,50 @@
     from {top: 0px;}
     to {top: 40px;}
 }
+/* lọc nâng cao */
+#filter {
+    width: 80%;
+    margin: auto;
+    padding: 0;
+    height: 50px;
+    background-color: #fff;
+    position: fixed;
+    top: 140px;
+    transition: top 0.5s;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    z-index: 1;
+}
+.filt-menu{
+    width: 185px;
+   margin: 5px;
+}
+.filt-menu-btn {
+    margin: 5px;
+    width: 68px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#filterErrorMessage{
+    color: red;
+    text-align: center;
+    display: block;
+    
+}
+#noProductsMessage{
+    height: 500px;
+}
+#message_content {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+

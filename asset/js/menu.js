@@ -1,7 +1,6 @@
 
 let products = JSON.parse(localStorage.getItem("products")) ?? [];
-if (products.length == 0)
-{
+if (products.length == 0) {
     let defaultData = [
         {
             'name': 'Gà chiên giòn',
@@ -93,22 +92,51 @@ taomenu();
 function taomenu() {
     var obj = document.querySelector("#menu_page");
     obj.innerHTML = `
+                
                   <div id="wrapper">
+                    
                       <div id="nav">
+                        
                           <div id="nav-container">
                               <ul>
                                   
                               </ul>
                           </div>
                       </div>
-
-                      <div id="menu-content"> 
-                          <div id="content-container">
+                      <div id="filter">
+                    
                         
-                          
-                          
-                          </div>
+                        <input type="number" id="minPrice"  class="filt-menu" placeholder="TỪ" /> -
+                        <input type="number" id="maxPrice"  class="filt-menu" placeholder="ĐẾN" />
+                        
+                        <select id="productType" class="filt-menu">
+                            <option value="">loại</option>
+                            <option value="0">Combo 1 người</option>
+                            <option value="1">Combo nhóm</option>
+                            <option value="2">Thức ăn</option>
+                            <option value="3">Thức uống</option>
+                        </select>
+                        <input type="text" id="nameFilter" class="filt-menu" placeholder="nhập tên:(ví dụ : gà, burger,...)" />
+  
+                      <button onclick="applyAdvancedFilters()" class="filt-menu-btn">Filters <div class="ti-filter"></div></button>
+                      <div id="filterErrorMessage" style="color: red; display: none;">Giá tối đa phải lớn hơn hoặc bằng giá tối thiểu.</div>
 
+                      
+  
+  
+                      
+                  </div>
+                      <div id="menu-content"> 
+                          <div id="content-container"></div>
+                          
+                          
+                          
+                        <div id="noProductsMessage" style="display: none;">
+                            <div id=message_content>
+                            <i class="fa-solid fa-filter-circle-xmark" style="font-size:xxx-large"></i>
+                            Không có sản phẩm nào phù hợp.
+                            </div>
+                        </div>
                           <div id="pageNumbers">
                               <div id="container">
                               </div>
@@ -349,7 +377,7 @@ function renderCart() {
             </div>
         </div>
     </div>`;
-}).join('');
+    }).join('');
     document.querySelector('#cart-content').innerHTML = cartHtml;
 
     let deleteBtns = document.querySelectorAll('.remove-item');
@@ -411,7 +439,7 @@ function detailAddToCart() {
             if (true) {
                 let productToAdd = createCartProduct(htmlProducts[btnIndex]);
                 alert('Đã thêm vào giỏ hàng')
-                
+
                 let cartProduct = {
                     accountInfo: loggedInAccount,
                     productInfo: productToAdd,
@@ -570,7 +598,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var thang = ngayHienTai.getMonth() + 1; // Lưu ý: tháng bắt đầu từ 0, nên cộng thêm 1
     var nam = ngayHienTai.getFullYear();
 
-    var time = nam+'-'+thang+'-'+ngay;
+    var time = nam + '-' + thang + '-' + ngay;
 
 
     submitButton.addEventListener('click', function () {
@@ -604,8 +632,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // localStorage.removeItem('cart');
         deleteCart(0, cart.length);
         updateProductToCart();
-            renderCart();
-        
+        renderCart();
+
         // Lấy danh sách các phần tử có class là 'cart-item-in-order-form'
         var elementsToRemove = document.querySelectorAll('.cart-item-in-order-form');
 
@@ -675,7 +703,7 @@ function addProduct() {
             // Cập nhật biến htmlProducts để hiển thị sản phẩm mới
             htmlProducts = [...products];
             renderAllProductsInAdmin();
-            
+
             // taomenu();
             // ... (phần code khác)
 
@@ -696,23 +724,23 @@ function addProduct() {
         // Nếu người dùng không chọn hình ảnh, bạn có thể xử lý theo ý muốn của mình
         console.log("Người dùng chưa chọn hình ảnh.");
     }
-    
+
 
 }
 
 var saveBtnAdd = document.getElementsByClassName('save')[0];
-saveBtnAdd.addEventListener('click', function(){ 
+saveBtnAdd.addEventListener('click', function () {
 
     var addForm = document.getElementById('add_form');
-    
-   
-    
-    addForm.style.display='none'
-    var product=addProduct();
+
+
+
+    addForm.style.display = 'none'
+    var product = addProduct();
     addProductToAdminPage(product);
     // renderAllProductsInAdmin()
-    
-   
+
+
 });
 
 // lịch sử đơn hàng đã đặt
@@ -722,7 +750,7 @@ function renderOrderHistory() {
 
     // Lấy thông tin tài khoản đã đăng nhập từ Local Storage
     const loggedInAccount = JSON.parse(localStorage.getItem('loggedInAccount'));
-     if (orders.length === 0) {
+    if (orders.length === 0) {
         document.getElementById('order-history').innerHTML = '<p>Không có đơn hàng nào.</p>';
         return;
     }
@@ -730,11 +758,11 @@ function renderOrderHistory() {
     if (loggedInAccount) {
         // Lọc danh sách đơn hàng theo tài khoản đã đăng nhập
         const userOrders = orders.filter(order => order.accountInfo.email === loggedInAccount.email);
-       
+
         // Hiển thị danh sách đơn hàng
         let orderHtml = '';
         userOrders.forEach((order, index) => {
-            
+
 
             orderHtml += `<div class="order" id="order-${index}">
             <div class="ti-arrow-circle-down" onclick="toggleOrder(${index})"></div>
@@ -817,32 +845,79 @@ function addProductToAdminPage(product) {
     `;
 
     containerAdmin.appendChild(newItem);
-    
+
 }
 function renderAllProductsInAdmin() {
     var containerAdmin = document.getElementById('productList');
     containerAdmin.innerHTML = '';  // Xóa nội dung cũ trước khi thêm sản phẩm mới
 
     htmlProducts.forEach(function (products) {
-        
+
 
         addProductToAdminPage(products);
     });
 }
 // xóa sản phẩm trong admin
 function deleteProduct(index) {
-    
+
 
     const confirmed = confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');
     if (confirmed) {
-        
+
         products.splice(index, 1);
     }
     localStorage.setItem('products', JSON.stringify(products));
     htmlProducts = [...products];
     renderAllProductsInAdmin();
 }
-    
 
- 
+
+
 // sửa sản phẩm trong admin
+// lọc nâng cao
+function applyAdvancedFilters() {
+    const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
+    const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+    const productType = document.getElementById('productType').value;
+    const nameFilter = document.getElementById('nameFilter').value.toLowerCase();
+
+    if (maxPrice < minPrice) {
+        document.getElementById('filterErrorMessage').style.display = 'block';
+        return;
+    } else {
+        document.getElementById('filterErrorMessage').style.display = 'none';
+    }
+
+    htmlProducts = products.filter(product => {
+        const meetsPriceCriteria = product.price >= minPrice && product.price <= maxPrice;
+        const meetsTypeCriteria = productType === '' || product.type === productType;
+        const meetsNameCriteria = product.name.toLowerCase().includes(nameFilter);
+
+        return meetsPriceCriteria && meetsTypeCriteria && meetsNameCriteria;
+    });
+    if (htmlProducts.length === 0) {
+        document.getElementById('noProductsMessage').style.display = 'block';
+    } else {
+        document.getElementById('noProductsMessage').style.display = 'none';
+    }
+    renderProducts();
+}
+// trượt thanh lọc
+let prevScrollPos = window.pageYOffset;
+
+window.onscroll = function () {
+    const currentScrollPos = window.pageYOffset;
+
+    // Check the scroll direction
+    if (prevScrollPos > currentScrollPos) {
+        // Scrolling up, move the filter bar down
+        document.getElementById('filter').style.top = '140px';
+    } else {
+        // Scrolling down, move the filter bar up to 160px
+        document.getElementById('filter').style.top = '85px';
+    }
+
+    prevScrollPos = currentScrollPos;
+};
+
+

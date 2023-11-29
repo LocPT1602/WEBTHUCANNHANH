@@ -401,6 +401,10 @@ body {
     background: darkgray;
     /* text-align: center; */
     padding: 0 20px;
+    display: flex;
+    width: 100%;
+    /* padding: 0 30%; */
+    text-align: center;
 }
 .confirm-button {
     /* position: absolute; */
@@ -409,4 +413,11 @@ body {
     font-size: larger;
     /* border: none; */
     padding: 10px;
+}
+.li_product {
+    font-size: x-large;
+    list-style: outside;
+}
+#edit_form{
+    display: none;
 }

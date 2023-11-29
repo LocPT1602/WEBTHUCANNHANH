@@ -216,18 +216,18 @@
         <!-- kết thúc trang chủ -->
         <!-- thực đơn -->
         <div id="menu_page">
-            
+
         </div>
         <!-- kết thúc thực đơn -->
 
         <div id="search_page">
-            
+
 
         </div>
 
         <!-- khuyến mãi -->
         <div id="sale_page">
-            
+
             <div class="banner_sale">
                 <img src="asset/img/bannerKM.png">
             </div>
@@ -878,7 +878,7 @@
                             <input type="text" class="email login_input_infor" disabled="true">
 
                         </div>
-                        
+
                         <input type="button" value="sửa" class="btn edit_btn" style="cursor: pointer;">
 
 
@@ -930,54 +930,55 @@
                 <div id="order-header">
                     <h1 class="tieuDe">Chi tiết đơn hàng </h1>
                 </div>
-    
-                <form action="" id="order-form" onsubmit="return validateForm()"> 
+
+                <form action="" id="order-form" onsubmit="return validateForm()">
                     <div id="order-content">
-                            <div id="customer-info">
-    
-                                <p>Thông tin khách hàng</p>
-                                <div class="input-group">
-                                    <label for="name">Họ và Tên</label>
-                                    <input type="text" id="name" required>
-                                </div>
-    
-                                <div class="input-group">
-                                    <label for="phone">Số Điện Thoại</label>
-                                    <input type="tel" id="phone" required>
-                                </div>
-    
-                                <div class="input-group">
-                                    <label for="address">Địa Chỉ</label>
-                                    <input type="text" id="address" required>
-                                </div>
-    
-                                <div class="input-group">
-                                    <label for="payment">Phương Thức Thanh Toán</label>
-                                    <select id="payment" style="position: absolute; left: 25%; height: 100%; width: 400px;">
-                                        <option value="chuyenkhoan">Chuyển Khoản</option>
-                                        <option value="khinhanhang">Thanh Toán Khi Nhận Hàng</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label for="notes">Ghi Chú Đơn Hàng</label>
-                                    <textarea id="notes" name="notes" style="position: absolute; left: 25%; height: 100%; width: 400px;" ></textarea>
-                                </div>
-    
+                        <div id="customer-info">
+
+                            <p>Thông tin khách hàng</p>
+                            <div class="input-group">
+                                <label for="name">Họ và Tên</label>
+                                <input type="text" id="name" required>
                             </div>
-    
-                            <div id="products-info">
-                                <p>Chi Tiết Sản Phẩm</p>
-                                <div id="label">
-                                    <p id="name">Sản phẩm</p>
-                                    <p id="price">Đơn giá</p>
-                                    <p id="quantity">Số lượng</p>
-                                    <p id="total">Tổng tiền</p>
-                                </div>
-    
-                                <div id="container">
-                                    
-                                </div>
+
+                            <div class="input-group">
+                                <label for="phone">Số Điện Thoại</label>
+                                <input type="tel" id="phone" required>
                             </div>
+
+                            <div class="input-group">
+                                <label for="address">Địa Chỉ</label>
+                                <input type="text" id="address" required>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="payment">Phương Thức Thanh Toán</label>
+                                <select id="payment" style="position: absolute; left: 25%; height: 100%; width: 400px;">
+                                    <option value="chuyenkhoan">Chuyển Khoản</option>
+                                    <option value="khinhanhang">Thanh Toán Khi Nhận Hàng</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="notes">Ghi Chú Đơn Hàng</label>
+                                <textarea id="notes" name="notes"
+                                    style="position: absolute; left: 25%; height: 100%; width: 400px;"></textarea>
+                            </div>
+
+                        </div>
+
+                        <div id="products-info">
+                            <p>Chi Tiết Sản Phẩm</p>
+                            <div id="label">
+                                <p id="name">Sản phẩm</p>
+                                <p id="price">Đơn giá</p>
+                                <p id="quantity">Số lượng</p>
+                                <p id="total">Tổng tiền</p>
+                            </div>
+
+                            <div id="container">
+
+                            </div>
+                        </div>
                     </div>
                     <!-- <button>dădaw</button> -->
                     <div id="order-footer">
@@ -985,7 +986,7 @@
                         <input type="submit" id="order-submit" value="Xác nhận">
                     </div>
                 </form>
-    
+
             </div>
         </div>
         <!-- kết thúc đặt hàng -->
@@ -1030,6 +1031,12 @@
 
                         </a>
 
+                    </li>
+                    <li data-target="manageUser">
+                        <div class="ti-home icon_nav "></div>
+                        <a href="#" id="Home" class="name_list">
+                            QUẢN LÝ TÀI KHOẢN
+                        </a>
                     </li>
                     <li data-target="manageOrders">
                         <div class="ti-notepad icon_nav"></div>
@@ -1098,6 +1105,9 @@
 
 
                 </div>
+                <div id="manageUser">
+
+                </div>
 
 
                 <div id="add_form" class="form_item">
@@ -1150,37 +1160,52 @@
                 </div>
                 <div id="total_sale">
                     <!-- <input type="text" readonly class="input_sale" readonly> -->
-                    <label for="startDate">Từ ngày:</label>
-                    <input type="date" id="startDate">
+                    <div class="filt_revenue">
+                        <label for="startDate">Từ ngày:</label>
+                        <input type="date" id="startDate">
 
-                    <label for="endDate">Đến ngày:</label>
-                    <input type="date" id="endDate">
+                        <label for="endDate">Đến ngày:</label>
+                        <input type="date" id="endDate">
+                        <button id="btn_filter_revenue" onclick="filterRevenue()">Lọc Doanh Thu</button>
+                    </div>
 
-
-                    <button onclick="filterRevenue()">Lọc Doanh Thu</button>
+                    
 
                     <div id="result">
-                        
+
                     </div>
                 </div>
 
-                <div id="edit_form" class="form_item" style="display: none;">
-                    <div id="header_form">sản phẩm</div>
-                    <form action="" class="edit_item">
-                        <label for="" class="input_label">hình ảnh:</label>
-                        <input type="file" name="img_input" id="img_input" class="itemInput">
-                        <label for="" class="input_label">tên sản phẩm:</label>
-                        <input type="text" class="nameInput itemInput">
-                        <label for="" class="input_label">mô tả sản phẩm:</label>
-                        <input type="text" class="describeInput itemInput">
-                        <label for="" class="input_label">giá tiền:</label>
-                        <input type="text" class="priceInput itemInput">
+                <!-- <div id="edit_form" class="form_item">
+                    <div id="wrapper_add_form_admin">
+                        <div id="header_form">thêm sản phẩm
+                            <div class="ti_close close_add_form"></div>
+                        </div>
+                        <form action="" class="edit_item">
+                            <label for="" class="input_label">hình ảnh:</label>
+                            <input type="file" name="img_input" id="img_input" class="itemInput">
+                            <label for="" class="input_label">tên sản phẩm:</label>
+                            <input type="text" class="nameInput itemInput">
+                            <label for="" class="input_label">mô tả sản phẩm:</label>
+                            <input type="text" class="describeInput itemInput">
+                            <label for="" class="input_label">số lượng</label>
+                            <input type="text" class="quantityInput itemInput">
+                            <label for="" class="input_label">loại</label>
+                            <select type="value" class="typeInput itemInput">
+                                <option value="0">combo lẻ 1</option>
+                                <option value="1">combo nhóm</option>
+                                <option value="2">thức ăn</option>
+                                <option value="3">thức uống</option>
+                            </select>
+                            <label for="" class="input_label">giá tiền:</label>
+                            <input type="text" class="priceInput itemInput">
 
-                        <input type="button" value="lưu" class="save">
+                            <input type="button" value="lưu" class="save" onclick="startEdit()">
 
 
-                    </form>
-                </div>
+                        </form>
+                    </div>
+                </div> -->
 
             </div>
             <!-- kết thúc admin -->

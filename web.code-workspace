@@ -7,5 +7,7 @@
 			"path": "asset"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "web"
+	}
 }

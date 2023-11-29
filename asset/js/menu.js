@@ -696,6 +696,8 @@ function addProduct() {
 
             // Thêm sản phẩm mới vào danh sách
             products.push(product);
+            // htmlProducts.push(product);
+            
 
             // Lưu danh sách sản phẩm mới vào Local Storage
             localStorage.setItem('products', JSON.stringify(products));
@@ -725,6 +727,18 @@ function addProduct() {
         console.log("Người dùng chưa chọn hình ảnh.");
     }
 
+    var name = document.getElementsByClassName('nameInput')[0].value;
+    var price = parseFloat(document.getElementsByClassName('priceInput')[0].value);
+    var quantity = parseInt(document.getElementsByClassName('quantityInput')[0].value);
+    var type = document.getElementsByClassName('typeInput')[0].value;
+    var description = document.getElementsByClassName('describeInput')[0].value;
+
+    // Đặt giá trị vào các trường input trong form
+    document.getElementsByClassName('nameInput')[0].value = name;
+    document.getElementsByClassName('priceInput')[0].value = price;
+    document.getElementsByClassName('quantityInput')[0].value = quantity;
+    document.getElementsByClassName('typeInput')[0].value = type;
+    document.getElementsByClassName('describeInput')[0].value = description;
 
 }
 
@@ -737,11 +751,14 @@ saveBtnAdd.addEventListener('click', function () {
 
     addForm.style.display = 'none'
     var product = addProduct();
-    addProductToAdminPage(product);
-    // renderAllProductsInAdmin()
-
+    // addProductToAdminPage(product);
+    
+    renderAllProductsInAdmin()
+    alert("đã thêm sản phẩm thành công, đang cập nhật lại trang")
+    window.location.reload()
 
 });
+
 
 // lịch sử đơn hàng đã đặt
 function renderOrderHistory() {
@@ -839,12 +856,15 @@ function addProductToAdminPage(product) {
             <p class="price_item">${product.price}vnd</p>
         </div>
         <div>
-        <button >Sửa</button>
+        <button class="editProductBtn" data-product-id="${product.id}">Sửa</button>
         <button class="delProduct" onclick="deleteProduct(${products.indexOf(product)})" >Xóa</button>
         </div>
     `;
+    
+    // htmlProducts.push(product);
 
     containerAdmin.appendChild(newItem);
+    // htmlProducts.push(product);
 
 }
 function renderAllProductsInAdmin() {
@@ -867,6 +887,7 @@ function deleteProduct(index) {
         products.splice(index, 1);
     }
     localStorage.setItem('products', JSON.stringify(products));
+    
     htmlProducts = [...products];
     renderAllProductsInAdmin();
 }
@@ -919,5 +940,6 @@ window.onscroll = function () {
 
     prevScrollPos = currentScrollPos;
 };
+// sửa thông tin:
 
 

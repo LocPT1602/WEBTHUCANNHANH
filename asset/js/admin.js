@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var namePage = document.getElementsByClassName('name_list')
     var dashBoard = document.getElementById('dashboard')
     var productManage = document.getElementById('container_admin');
+    var manageUser=document.getElementById('manageUser')
     var orderHistory = document.getElementById('order-history-container')
     var totalSale = document.getElementById('total_sale')
     var currentNavItemContent = document.getElementsByClassName('name')[0]
@@ -37,14 +38,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     currentSelected = productManage;
                     currentNavItemContent.textContent = namePage[1].textContent;
                     break;
+                case "manageUser":
+                    manageUser.style.display = 'block';
+                    currentSelected = manageUser;
+                    currentNavItemContent.textContent = namePage[2].textContent;
+                    break;    
                 case "manageOrders":
                     orderHistory.style.display = 'block'
-                    currentNavItemContent.textContent = namePage[2].textContent;
+                    currentNavItemContent.textContent = namePage[3].textContent;
                     currentSelected = orderHistory
                     break;
                 case "businessStats":
                     totalSale.style.display = 'block'
-                    currentNavItemContent.textContent = namePage[3].textContent;
+                    currentNavItemContent.textContent = namePage[4].textContent;
                     currentSelected = totalSale
                     break;
                 // Thêm các case khác tương ứng với các mục trong nav left
@@ -57,11 +63,19 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 var addBtn = document.getElementsByClassName('icon_add_item')[0];
 var addForm = document.getElementById('add_form');
-// var imgInput = document.getElementById('img_input');
-// var nameInput = document.getElementsByClassName('nameInput')[0];
-// var describeInput = document.getElementsByClassName('describeInput')[0];
-// var priceInput = document.getElementsByClassName('priceInput')[0];
-// var saveBtn = document.getElementsByClassName('save')[0]
+const currentDate = new Date();
+
+// Lấy ô nhập ngày bắt đầu và ngày kết thúc
+const startDateInput = document.getElementById("startDate");
+const endDateInput = document.getElementById("endDate");
+
+// Đặt giá trị mặc định cho ô nhập ngày bắt đầu là ngày 1/1/2023 và ngày kết thúc là ngày hiện tại
+startDateInput.valueAsDate = new Date('2023-01-01');
+endDateInput.valueAsDate = currentDate;
+
+// Gọi hàm filterRevenue để tự động lọc doanh thu
+filterRevenue();
+
 
 function openAddItem() {
     addForm.style.display = 'block';
@@ -207,16 +221,9 @@ function renderFilteredOrders(filteredOrders) {
 window.onload = function () {
     renderOrderHistoryView(); // Để hiển thị đơn hàng ban đầu
 };
+// kết thúc lọc đơn hang theo ngày
 
 
-// hàm hiển thị ở bản điều khiển
-// tính doanh thu
-// Thêm tham số startDate và endDate để tính toán doanh thu trong khoảng thời gian cụ thể
-// Hàm tính tổng doanh thu của đơn hàng
-// function calculateOrderTotal(order) {
-//     // Giả sử bạn có các trường 'quantity' và 'price' trong đối tượng đơn hàng
-//     return order.quantity * order.price;
-// }
 
 // Hàm tính tổng số lượng sản phẩm từ một danh sách đơn hàng
 function calculateTotalProducts(products) {
@@ -259,23 +266,6 @@ function calculateMonthlyRevenue(orders) {
     return monthlyRevenue;
 }
 
-// Sử dụng hàm calculateMonthlyRevenue với danh sách đơn hàng của bạn
-// doanh thu tổng
-// Hàm tính tổng doanh thu từ toàn bộ danh sách đơn hàng
-// function calculateTotalRevenue(orders) {
-//     // const orders = JSON.parse(localStorage.getItem('orders'))
-//     // Sử dụng reduce để tính tổng doanh thu từ mỗi đơn hàng
-//     const totalRevenue = orders.reduce((total, order) => {
-//         return total + calculateOrderTotal(order);
-//     }, 0);
-
-//     return totalRevenue;
-// }
-
-
-
-
-
 // Gọi các hàm và gán giá trị vào các thẻ HTML
 const orders = JSON.parse(localStorage.getItem('orders')) || [];;
 const totalProducts = calculateTotalProducts(products);
@@ -287,110 +277,128 @@ document.getElementById('sum_order').querySelector('.order_revenue').value = tot
 const monthlyRevenue = calculateMonthlyRevenue(orders);
 document.getElementById('month_sale').querySelector('.month_revenue').value = monthlyRevenue || 0;
 
-var Revenue = calculateTotalRevenue(orders);
 
-// lọc doanh thu theo thời gian
-// Hàm tính tổng doanh thu của từng loại sản phẩm
-function calculateTotalRevenue(orders) {
-    const totalRevenueByProductType = {
-        '0': 0, // Loại 0
-        '1': 0, // Loại 1
-        '2': 0, // Loại 2
-        '3': 0  // Loại 3
+
+// tính tổng doanh thu chung
+function calculateTotalRevenue(revenueByProductType) {
+    // Tính tổng doanh thu chung từ tất cả các loại
+    return Object.values(revenueByProductType)
+        .reduce((acc, type) => acc + type.total, 0) || 0;
+}
+
+// tính tổng doang thu theo từng loại
+function calculateRevenueByProductType(orders) {
+    const revenueByProductType = {
+        '0': { total: 0, products: [] }, // Loại 0
+        '1': { total: 0, products: [] }, // Loại 1
+        '2': { total: 0, products: [] }, // Loại 2
+        '3': { total: 0, products: [] }  // Loại 3
     };
 
-    // Tính tổng doanh thu từng loại sản phẩm từ trước đến thời điểm hiện tại
     orders.forEach(order => {
         order.cartItems.forEach(item => {
             const productType = item.productInfo.type;
-            totalRevenueByProductType[productType] += item.productInfo.price * item.productInfo.count;
+            const productTotal = item.productInfo.price * item.productInfo.count;
+
+            revenueByProductType[productType].total += productTotal;
+
+            // Kiểm tra xem sản phẩm đã tồn tại trong danh sách chưa
+            const existingProduct = revenueByProductType[productType].products.find(p => p.name === item.productInfo.name);
+
+            if (existingProduct) {
+                // Nếu sản phẩm đã tồn tại, cập nhật tổng tiền
+                existingProduct.total += productTotal;
+            } else {
+                // Nếu sản phẩm chưa tồn tại, thêm mới vào danh sách
+                revenueByProductType[productType].products.push({
+                    name: item.productInfo.name,
+                    total: productTotal
+                });
+            }
         });
     });
-
-    // Tính tổng doanh thu cho tất cả các loại sản phẩm
-    const totalRevenue = totalRevenueByProductType['0'] + totalRevenueByProductType['1'] +
-                         totalRevenueByProductType['2'] + totalRevenueByProductType['3'];
-
-    // Hiển thị tổng doanh thu và các loại sản phẩm
-    document.getElementById('revenueall').querySelector('.revenue').value = totalRevenue || 0;
-    displayRevenue(totalRevenueByProductType);
+    const totalRevenue = calculateTotalRevenue(revenueByProductType);
+document.getElementById('revenueall').querySelector('.revenue').value = totalRevenue !== undefined ? totalRevenue : 0;
+    return revenueByProductType;
 }
 
-
-// Hàm hiển thị doanh thu
-function displayRevenue(revenueByProductType) {
+// hiển thị doanh thu
+function displayRevenueAndTotal(revenueByProductType) {
     const resultElement = document.getElementById("result");
 
-    // Hiển thị số tiền từng loại sản phẩm
     resultElement.innerHTML = `
-    <h3 class="revenuetitle">Doanh thu</h3>
-    <ul class="thongke">
-        <li class="typeItem">
-            <lable><i class="fa-solid fa-user-large"></i> combo lẻ 1</lable>
-            <input class="inputThongke" type="text" value="${revenueByProductType['0']}">
-        </li>
-        <li class="typeItem">
-            <lable><i class="fa-solid fa-user-group"></i> combo nhóm</lable>
-            <input class="inputThongke" type="text" value="${revenueByProductType['1']}">
-        </li>
-        <li class="typeItem">
-            <lable><i class="fa-solid fa-burger"></i> thức ăn</lable>
-            <input class="inputThongke" type="text" value="${revenueByProductType['2']}">
-        </li>
-        <li class="typeItem">
-            <lable><i class="fa-solid fa-martini-glass-citrus"></i> thức uống</lable>
-            <input class="inputThongke" type="text" value="${revenueByProductType['3']}">
-        </li>
-    </ul>
+    <h3 class="revenuetitle">Tổng doanh thu</h3>
+        <input class="inputThongke" type="text" value="${calculateTotalRevenue(revenueByProductType)}">
+        <h3 class="revenuetitle">Doanh thu theo loại sản phẩm</h3>
+        <ul class="thongke">
+            ${Object.entries(revenueByProductType)
+                .map(([type, { total, products }]) => `
+                    <li class="typeItem">
+                        <label><i class="fa-solid fa-user-large"></i>${getProductTypeName(type)}</label>
+                        <input class="inputThongke" type="text" value="${total}">
+                        <ul>
+                            ${products.map(product => `
+                                <li class="li_product">
+                                    ${product.name} - Tổng tiền: ${product.total}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </li>
+                `).join('')}
+        </ul>
+        
+        
     `;
+    function getProductTypeName(type) {
+        switch (type) {
+            case '0':
+                return 'Combo lẻ 1';
+            case '1':
+                return 'Combo nhóm';
+            case '2':
+                return 'Thức ăn';
+            case '3':
+                return 'Thức uống';
+            default:
+                return 'Unknown Type';
+        }
+    }
 }
 
-// Hàm lọc doanh thu
+
+// Gọi hàm lọc doanh thu khi trang web được tải
 function filterRevenue() {
     const startDateInput = document.getElementById("startDate");
     const endDateInput = document.getElementById("endDate");
 
-    // Kiểm tra nếu ngày bắt đầu chưa được chọn, đặt giá trị mặc định là '2023-01-01'
-    const startDate = startDateInput.value
-        ? new Date(startDateInput.value)
-        : new Date('2023-01-01');
+    // Lấy danh sách đơn hàng từ Local Storage
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
 
-    const endDate = new Date(endDateInput.value);
+    // Kiểm tra nếu danh sách đơn hàng không rỗng
+    if (orders.length > 0) {
+        // Lấy ngày đầu tiên trong danh sách đơn hàng
+        const firstOrderDate = new Date(orders[0].personalInfo.deliveryTime);
 
-    // Kiểm tra nếu ngày kết thúc không hợp lệ
-    if (isNaN(endDate)) {
-        alert("Ngày kết thúc không hợp lệ. Vui lòng nhập ngày hợp lệ.");
-        return;
-    }
+        // Đặt ngày bắt đầu là ngày đầu tiên trong danh sách đơn hàng
+        const startDate = startDateInput.value
+            ? new Date(startDateInput.value)
+            : firstOrderDate;
 
-    // Đối tượng để theo dõi tổng doanh thu cho từng loại sản phẩm
-    const revenueByProductType = {
-        '0': 0, // Loại 0
-        '1': 0, // Loại 1
-        '2': 0, // Loại 2
-        '3': 0  // Loại 3
-    };
+        const endDate = new Date(endDateInput.value);
 
-    // Lọc các đơn hàng trong khoảng thời gian
-    const filteredOrders = orders.filter(order => {
-        const orderDate = new Date(order.personalInfo.deliveryTime);
-        return orderDate >= startDate && orderDate <= endDate;
-    });
-
-    // Tính tổng doanh thu từng loại sản phẩm
-    filteredOrders.forEach(order => {
-        order.cartItems.forEach(item => {
-            const productType = item.productInfo.type;
-            revenueByProductType[productType] += item.productInfo.price * item.productInfo.count;
+        const filteredOrders = orders.filter(order => {
+            const orderDate = new Date(order.personalInfo.deliveryTime);
+            return orderDate >= startDate && orderDate <= endDate;
         });
-    });
 
-    // Hiển thị kết quả
-    displayRevenue(revenueByProductType);
+        const revenueByProductType = calculateRevenueByProductType(filteredOrders);
+
+        displayRevenueAndTotal(revenueByProductType);
+    }
 }
 
-// Gọi hàm lọc doanh thu khi trang web được tải
-// filterRevenue();
+
+
 
 
 // trc khi lọc

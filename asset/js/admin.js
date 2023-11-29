@@ -230,6 +230,10 @@ function renderFilteredOrders(filteredOrders) {
 
             order.cartItems.forEach(item => {
                 orderHtml += `<li>${item.productInfo.name} - ${item.productInfo.count} - ${item.productInfo.price * item.productInfo.count}đ</li>`;
+            
+                if (order.status == 'Chưa xử lí') {
+                orderHtml += `<button class="confirm-button" onclick="confirmOrder(${index})">Xác Nhận</button>`
+            }
             });
 
             orderHtml += `</ul></div>`;

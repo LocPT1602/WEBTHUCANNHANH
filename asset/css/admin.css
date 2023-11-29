@@ -469,3 +469,11 @@ body {
     align-items: flex-start;
     padding: 10px;
 }
+.fa-x{
+    padding: 5px;
+}
+.fa-x:hover{
+    cursor: pointer;
+    background-color: #000;
+    color: #ccc;
+}

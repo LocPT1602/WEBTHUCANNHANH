@@ -851,7 +851,7 @@ function addProductToAdminPage(product) {
             <p class="price_item">${product.price}vnd</p>
         </div>
         <div>
-        <button class="editProductBtn" data-product-id="${product.id}">Sửa</button>
+        <button class="editProductBtn" onclick="openEdit(${products.indexOf(product)})">Sửa</button>
         <button class="delProduct" onclick="deleteProduct(${products.indexOf(product)})" >Xóa</button>
         </div>
     `;
@@ -936,5 +936,67 @@ window.onscroll = function () {
     prevScrollPos = currentScrollPos;
 };
 // sửa thông tin:
+// mở sửa form sửa thogno tin
+var openEditForm= document.getElementById('edit_form')
+function openEdit(index){
+    openEditForm.style.display='block'
+    editForm(index)
+}
 
+function uploadImage() {
+    var newImg = document.getElementById('img_input_new');
+    if (newImg) {
+        newImg.click(); // Trigger the file input click event
+    }
+}
+function editForm(index) {
+    var newImg = document.getElementById('img_input_new');
+    var newName = document.getElementById('nameInput_new');
+    var newDesc = document.getElementById('describeInput_new');
+    var newQuantity = document.getElementById('quantityInput_new');
+    var newType = document.getElementById('typeInput_new');
+    var newPrice = document.getElementById('priceInput_new');
+    var displayedImage = document.getElementById('displayedImage');
+
+    if (!newImg || !newName || !newDesc || !newQuantity || !newType || !newPrice || !displayedImage) {
+        console.error('One or more elements not found.');
+        return;
+    }
+
+    if (index >= 0 && index < products.length) {
+        var product = products[index];
+
+        // Populate the edit form with data from the selected product
+        displayedImage.src = product.img;
+        newName.value = product.name;
+        newDesc.value = product.description;
+        newQuantity.value = product.quantity;
+        newType.value = product.type;
+        newPrice.value = product.price;
+
+        // Add an event listener to handle changes in the image input
+        newImg.addEventListener('change', function () {
+            var newImgFile = newImg.files[0];
+            var newReader = new FileReader();
+    
+            newReader.onloadend = function () {
+                // Handle the loaded image data as needed
+                var imgBase64 = newReader.result;
+                console.log('Image Base64:', imgBase64);
+    
+                // Display the selected image
+                displayedImage.src = imgBase64;
+                displayedImage.style.display = 'block';
+            };
+    
+            // Read the new image file as base64
+            newReader.readAsDataURL(newImgFile);
+        });
+
+        // Add an event listener to the displayed image to trigger the file selection dialog
+        displayedImage.addEventListener('click', function () {
+            uploadImage();
+        });
+    }
+}
 

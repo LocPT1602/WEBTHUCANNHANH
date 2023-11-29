@@ -192,8 +192,9 @@ body {
 #wrapper_add_form_admin{
     width: 60%;
     margin-left: 20%;
-    margin-top: 10%;
+    margin-top: 5%;
 }
+#edit_form,
 #add_form{
     display: none;
     position: fixed;
@@ -458,4 +459,11 @@ body {
     border: none;
     padding: 5px 10px;
     cursor: pointer;
+}
+#imgUpLoad {
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    align-items: flex-start;
+    padding: 10px;
 }

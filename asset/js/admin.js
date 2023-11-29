@@ -62,6 +62,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+function closeAddForm() {
+    document.querySelector("#add_form").style = 'display: none';
+}
+
 var saveBtnAdd = document.getElementsByClassName('save')[0];
 saveBtnAdd.addEventListener('click', function () {
 

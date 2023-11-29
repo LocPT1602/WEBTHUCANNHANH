@@ -206,8 +206,10 @@ body {
     background-color: #0000007b;
 }
 .close_add_form{
-    position: fixed;
+    position: absolute;
     top: 0;
+    right: 0;
+    cursor: pointer;
 }
 
 #header_form{

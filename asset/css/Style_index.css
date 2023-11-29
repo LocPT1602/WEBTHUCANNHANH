@@ -186,7 +186,7 @@ body{
     align-items: center;
 }
 #content .header-menu{
-    width: 20%;
+    width: 10%;
 }
 #content .logo-menu {
     width: 100%;
@@ -381,7 +381,7 @@ body{
     cursor: pointer;
 }
 /* responsive */
-@media (max-width: 1170px){
+@media (max-width: 1203px){
     #head .img-logo{
         order: 2;
         

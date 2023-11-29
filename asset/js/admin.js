@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var totalSale = document.getElementById('total_sale')
     var currentNavItemContent = document.getElementsByClassName('name')[0]
 
-    var currentSelected = dashBoard;
+    var currentSelected=dashBoard;
 
     sidebarItems.forEach(function (item) {
         item.addEventListener("click", function () {
@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentSelected.style.display = 'none';
 
             }
+            
 
 
             switch (targetValue) {
@@ -60,6 +61,28 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+});
+var saveBtnAdd = document.getElementsByClassName('save')[0];
+saveBtnAdd.addEventListener('click', function () {
+
+    var addForm = document.getElementById('add_form');
+
+
+
+    addForm.style.display = 'none'
+    var product = addProduct();
+    // addProductToAdminPage(product);
+    
+    renderAllProductsInAdmin()
+    alert("đã thêm sản phẩm thành công, đang cập nhật lại trang")
+    // var productManage = document.getElementById('container_admin');
+   
+    
+    window.location.reload()
+   
+    // currentNavItemContent.textContent = namePage[2].textContent;
+    
+
 });
 var addBtn = document.getElementsByClassName('icon_add_item')[0];
 var addForm = document.getElementById('add_form');
@@ -403,7 +426,74 @@ function filterRevenue() {
 
 // trc khi lọc
 
+// quản lý tài khoản
 
+function accountDataManage() {
+    const accountData = JSON.parse(localStorage.getItem('accountData'));
+    const manageUserContainer = document.getElementById('userlist');
+    let manageUserTemp = '<table class="userlistcontainer"><tr><th class="headerUserlist">STT</th><th class="headerUserlist">Họ tên khách hàng</th><th class="headerUserlist">Tên đăng nhập</th><th class="headerUserlist">Mật khẩu</th><th class="headerUserlist">Ngày đăng ký</th><th class="headerUserlist">Xóa</th></tr>';
+
+    if (accountData.length > 0) {
+        manageUserTemp += '<h2>danh sách tài khoản</h2>';
+        for (let i = 1; i < accountData.length; i++) {
+            manageUserTemp += `<tr>
+                <td>${i}</td>
+                <td>${accountData[i].fullName}</td>
+                <td>${accountData[i].email}</td>
+                <td>${accountData[i].password}</td>
+                <td>${accountData[i].phoneNumber}</td>
+                <td><button id="removeUser" onclick="removeUser(${i})">Xóa</button></td>
+            </tr>`;
+        }
+
+        manageUserTemp += '</table>';
+        manageUserContainer.innerHTML = manageUserTemp;
+    } else {
+        manageUserContainer.innerHTML = '<p>Không có đơn hàng nào.</p>';
+    }
+}
+
+accountDataManage();
+function removeUser(i) {
+    let ans = confirm('Bạn có chắc muốn xóa người dùng này ?');
+    if(ans == true) {
+          let accountData = JSON.parse(localStorage.getItem('accountData'));
+          accountData.splice(i,1);
+          localStorage.setItem('accountData',JSON.stringify(accountData));
+        //   customAlert('Bạn đã xóa sản phẩm thành công','success');
+          accountDataManage();
+    }
+}
+
+// sửa thông tin sản phẩm
+// function changeProductAdmin(id) {
+//     let productArray = JSON.parse(localStorage.getItem('product'));
+
+//     var addProductName = document.getElementById('nameInput_new');
+//     var addProductImg = document.getElementById('img_input_new');
+//     var addProductPrice = document.getElementById('priceInput_new');
+//     var i;
+//     for (i = 0; i < productArray.length; i++) {
+//           if(productArray[i].productID == id) {
+//                 break;
+//           }
+//     }
+//     addProductName.value = productArray[i].name;
+//     addProductPrice.value = productArray[i].price;
+//     addProductImg.value = productArray[i].img;
+//     addProductAdmin_showIMG()
+// }
+// function addProductAdmin_format() {
+    
+//     var addProductName = document.getElementById('nameInput_new');
+//     var addProductImg = document.getElementById('img_input_new');
+//     var addProductPrice = document.getElementById('priceInput_new');
+
+//     addProductName.value = '';
+//     addProductImg.value = '';
+//     addProductPrice.value = '';
+//     addProductAdmin_showIMG()
+// }
 
 
 

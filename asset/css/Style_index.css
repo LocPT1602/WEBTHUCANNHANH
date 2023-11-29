@@ -443,7 +443,7 @@ body{
 
     
 }
-@media (max-width:580px)  {
+@media (max-width:600px)  {
     
     #head .img-logo{
         display: none;
@@ -538,6 +538,10 @@ body{
         width: 70%;
     margin-left: 15%;
     margin-top: 0%;
+    }
+    #wrapper .filt-menu {
+        width: 85px;
+        /* margin: 5px; */
     }
 }
 

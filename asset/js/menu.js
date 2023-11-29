@@ -727,37 +727,32 @@ function addProduct() {
         console.log("Người dùng chưa chọn hình ảnh.");
     }
 
-    var name = document.getElementsByClassName('nameInput')[0].value;
-    var price = parseFloat(document.getElementsByClassName('priceInput')[0].value);
-    var quantity = parseInt(document.getElementsByClassName('quantityInput')[0].value);
-    var type = document.getElementsByClassName('typeInput')[0].value;
-    var description = document.getElementsByClassName('describeInput')[0].value;
-
-    // Đặt giá trị vào các trường input trong form
-    document.getElementsByClassName('nameInput')[0].value = name;
-    document.getElementsByClassName('priceInput')[0].value = price;
-    document.getElementsByClassName('quantityInput')[0].value = quantity;
-    document.getElementsByClassName('typeInput')[0].value = type;
-    document.getElementsByClassName('describeInput')[0].value = description;
 
 }
 
-var saveBtnAdd = document.getElementsByClassName('save')[0];
-saveBtnAdd.addEventListener('click', function () {
+// var saveBtnAdd = document.getElementsByClassName('save')[0];
+// saveBtnAdd.addEventListener('click', function () {
 
-    var addForm = document.getElementById('add_form');
+//     var addForm = document.getElementById('add_form');
 
 
 
-    addForm.style.display = 'none'
-    var product = addProduct();
-    // addProductToAdminPage(product);
+//     addForm.style.display = 'none'
+//     var product = addProduct();
+//     // addProductToAdminPage(product);
     
-    renderAllProductsInAdmin()
-    alert("đã thêm sản phẩm thành công, đang cập nhật lại trang")
-    window.location.reload()
+//     renderAllProductsInAdmin()
+//     alert("đã thêm sản phẩm thành công, đang cập nhật lại trang")
+//     // var productManage = document.getElementById('container_admin');
+   
+    
+//     window.location.reload()
+//     productManage.style.display = 'block';
+//     // var dashBoard = document.getElementById('dashboard')
+//     dashBoard.style.display = 'none';
+    
 
-});
+// });
 
 
 // lịch sử đơn hàng đã đặt

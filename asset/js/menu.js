@@ -938,9 +938,20 @@ window.onscroll = function () {
 // sửa thông tin:
 // mở sửa form sửa thogno tin
 var openEditForm= document.getElementById('edit_form')
-function openEdit(index){
-    openEditForm.style.display='block'
-    editForm(index)
+var saveBtnEdit=document.getElementsByClassName('saveedit')
+function openEdit(index) {
+    openEditForm.style.display = 'block';
+    editForm(index);
+
+    // Use an arrow function or function reference for the event listener
+    saveBtnEdit[index].addEventListener('click', function () {
+        saveEdit(index);
+        alert('đã thay đổi thành công!!!')
+        openEditForm.style.display = 'none';
+    });
+
+    // Alternatively, you can use an arrow function directly
+    // saveBtnEdit[index].addEventListener('click', () => saveEdit(index));
 }
 
 function uploadImage() {
@@ -999,4 +1010,71 @@ function editForm(index) {
         });
     }
 }
+function saveEdit(index) {
+    if (index >= 0 && index < products.length) {
+        var editedProduct = products[index];
+
+        // Update the product information with the edited values
+        editedProduct.name = document.getElementById('nameInput_new').value;
+        editedProduct.description = document.getElementById('describeInput_new').value;
+        editedProduct.quantity = parseInt(document.getElementById('quantityInput_new').value);
+        editedProduct.type = document.getElementById('typeInput_new').value;
+        editedProduct.price = parseFloat(document.getElementById('priceInput_new').value);
+
+        // Check if a new image has been selected
+        var newImgInput = document.getElementById('img_input_new');
+        if (newImgInput.files.length > 0) {
+            var newImgFile = newImgInput.files[0];
+            var newReader = new FileReader();
+
+            newReader.onloadend = function () {
+                // Handle the loaded image data as needed
+                var imgBase64 = newReader.result;
+                console.log('New Image Base64:', imgBase64);
+
+                // Update the product object with the new image
+                editedProduct.img = imgBase64;
+
+                // Optionally, update the displayed image in the UI
+                var displayedImage = document.getElementById('displayedImage');
+                if (displayedImage) {
+                    displayedImage.src = imgBase64;
+                    displayedImage.style.display = 'block';
+                }
+
+                // Save the updated product information back to your data structure
+                products[index] = editedProduct;
+
+                // Update local storage with the modified product information
+                localStorage.setItem('products', JSON.stringify(products));
+
+                // Optionally, you may want to update any UI elements to reflect the changes
+                renderAllProductsInAdmin();
+                // Other UI update logic
+
+                // Clear the form or perform any additional actions as needed
+                document.getElementsByClassName('edit_item')[0].reset();
+            };
+
+            // Read the new image file as base64
+            newReader.readAsDataURL(newImgFile);
+        } else {
+            // If no new image is selected, update local storage and UI directly
+            localStorage.setItem('products', JSON.stringify(products));
+            renderAllProductsInAdmin();
+            // Other UI update logic
+
+            // Clear the form or perform any additional actions as needed
+            document.getElementsByClassName('edit_item')[0].reset();
+        }
+    } else {
+        console.error('Invalid index or product not found.');
+    }
+}
+
+
+// Example usage:
+// Call saveEdit with the index of the product you want to edit
+// For instance, saveEdit(0) to edit the first product
+
 

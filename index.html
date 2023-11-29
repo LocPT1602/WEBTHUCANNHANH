@@ -932,7 +932,7 @@
                     <h1 class="tieuDe">Chi tiết đơn hàng </h1>
                 </div>
 
-                <form action="" id="order-form" onsubmit="return validateForm()">
+                <form action="" id="order-form">
                     <div id="order-content">
                         <div id="customer-info">
 
@@ -1116,8 +1116,9 @@
 
                 <div id="add_form" class="form_item">
                     <div id="wrapper_add_form_admin">
-                        <div id="header_form">thêm sản phẩm
-                            <div class="ti_close close_add_form"></div>
+                        <div id="header_form">
+                            <p>Thêm sản phẩm</p>
+                            <div class="fa-solid fa-x close_add_form" onclick="closeAddForm()"></div>
                         </div>
                         <form action="" class="edit_item">
                             <label for="" class="input_label">hình ảnh:</label>

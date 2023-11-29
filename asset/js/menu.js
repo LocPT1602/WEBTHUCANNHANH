@@ -585,7 +585,7 @@ function renderProductsInOrderForm() {
 //  xác nhận đặt hàng
 document.addEventListener("DOMContentLoaded", function () {
     // ... (Các đoạn mã khác)
-
+    
     // Bắt sự kiện khi người dùng nhấn nút "Xác Nhận Đơn Hàng"
     const submitButton = document.querySelector('#order-submit');
     renderOrderHistoryView();
@@ -602,7 +602,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     submitButton.addEventListener('click', function () {
-        validateForm();
+        if (validateForm() == false) return false;
         // Bước 1: Trích xuất thông tin cá nhân từ form
         const personalInfo = {
             name: document.querySelector('.input-group #name').value,

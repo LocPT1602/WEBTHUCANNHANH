@@ -72,6 +72,15 @@ function closeAddForm() {
 var saveBtnAdd = document.getElementsByClassName('save')[0];
 saveBtnAdd.addEventListener('click', function () {
 
+    validateAndSave()
+    
+    
+    
+   
+    
+
+});
+function saveForm(){
     var addForm = document.getElementById('add_form');
 
 
@@ -81,16 +90,10 @@ saveBtnAdd.addEventListener('click', function () {
     // addProductToAdminPage(product);
     
     renderAllProductsInAdmin()
-    alert("đã thêm sản phẩm thành công, đang cập nhật lại trang")
-    // var productManage = document.getElementById('container_admin');
-   
+    alert("đã thêm sản phẩm thành công, đang cập nhật lại trang")   
     
     window.location.reload()
-   
-    // currentNavItemContent.textContent = namePage[2].textContent;
-    
-
-});
+}
 var addBtn = document.getElementsByClassName('icon_add_item')[0];
 var addForm = document.getElementById('add_form');
 const currentDate = new Date();

@@ -479,35 +479,7 @@ function removeUser(i) {
     }
 }
 
-// sửa thông tin sản phẩm
-// function changeProductAdmin(id) {
-//     let productArray = JSON.parse(localStorage.getItem('product'));
 
-//     var addProductName = document.getElementById('nameInput_new');
-//     var addProductImg = document.getElementById('img_input_new');
-//     var addProductPrice = document.getElementById('priceInput_new');
-//     var i;
-//     for (i = 0; i < productArray.length; i++) {
-//           if(productArray[i].productID == id) {
-//                 break;
-//           }
-//     }
-//     addProductName.value = productArray[i].name;
-//     addProductPrice.value = productArray[i].price;
-//     addProductImg.value = productArray[i].img;
-//     addProductAdmin_showIMG()
-// }
-// function addProductAdmin_format() {
-    
-//     var addProductName = document.getElementById('nameInput_new');
-//     var addProductImg = document.getElementById('img_input_new');
-//     var addProductPrice = document.getElementById('priceInput_new');
-
-//     addProductName.value = '';
-//     addProductImg.value = '';
-//     addProductPrice.value = '';
-//     addProductAdmin_showIMG()
-// }
 
 
 

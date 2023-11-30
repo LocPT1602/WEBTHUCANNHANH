@@ -174,10 +174,7 @@ function renderProducts() {
     let pageTotal = Math.ceil(htmlProducts.length / numberOfProductInPage);
 
     let pageNumberData = '';
-    if (pageTotal < 2) {
-        pageNumberData += `<div class="page-number" index="${1}" onclick="renderProductsInPage(${0})">${'1'}</div>`
-    }
-    else {
+    if (pageTotal > 1) {
         for (let i = 1; i <= pageTotal; i++) {
             pageNumberData += `<div class="page-number" index="${i}" onclick="renderProductsInPage(${i - 1})">${i.toString()}</div>`
         }

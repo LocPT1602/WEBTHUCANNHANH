@@ -294,15 +294,26 @@ body{
     width: 100%;
    
 }
+
+#introduce {
+    position: relative;
+}
+
 #introduce .introduce_wrapper{
     height: 100%;
     background-size: cover;
     
 }
 #introduce .slogan {
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    /* transform: translateX(-50%); */
     text-align: center;
-    padding: 15% 15% 0 15%;
-    color: hsl(0, 0%, 100%);
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgb(0, 0, 0);
+    background-color: rgba(202, 202, 202, 0.574);
 }
 #introduce .slogan h1{
     font-weight: bold;
@@ -336,7 +347,7 @@ body{
 }
 #footer .footer_wrapper{
     padding: 30px;
-   
+    /* height: 400px; */
 }
 #footer .contact {
     /* width: 60%; */
@@ -348,7 +359,7 @@ body{
 
 }
 #footer .logo_footer img{
-    height: 200px;
+    height: 150px;
 }
 #footer .content_footer{
 

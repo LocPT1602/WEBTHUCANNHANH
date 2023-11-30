@@ -327,6 +327,8 @@ function userName() {
     loginFormClose();
   } else {
     document.getElementById('nameAcc_message').textContent = 'Tài khoản không tồn tại';
+    document.querySelector(".login_name").focus();
+    
     document.getElementsByClassName('login_name')[0].classList.add('error-input');
     return false;
   }

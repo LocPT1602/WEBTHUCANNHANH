@@ -234,6 +234,7 @@ function login(event) {
   document.getElementById('password_message').textContent = '';
   if (emailOrPhone.trim() === '') {
     document.getElementById('nameAcc_message').textContent = 'Vui lòng nhập tên đăng nhập';
+    document.querySelector(".login_name").focus();
     document.getElementsByClassName('login_name')[0].classList.add('error-input');
     return;
   }
@@ -269,6 +270,7 @@ function login(event) {
       }
       else {
         document.getElementById('password_message').textContent = 'Mật khẩu không đúng, vui lòng nhập lại';
+        document.querySelector(".login_password").focus();
         document.getElementsByClassName('login_password')[0].classList.add('error-input');
         return;
       }
@@ -363,28 +365,33 @@ function regist(event) {
 
   if (fullName.trim() === '') {
     document.getElementById('fullnameMessage').textContent = 'Vui lòng nhập họ và tên.';
+    document.querySelector(".register_name").focus();
     document.getElementsByClassName('register_name')[0].classList.add('error-input');
     return false;
   }
 
   if (!validatePhoneNumber(phoneNumber)) {
     document.getElementById('phoneMessage').textContent = 'Vui lòng nhập số điện thoại( 10 chữ số).';
+    document.querySelector(".register_phone").focus();
     document.getElementsByClassName('register_phone')[0].classList.add('error-input');
     return false;
   }
 
   if (!isValidEmail(email.trim())) {
     document.getElementById('mailMessage').textContent = 'Vui lòng nhập địa chỉ email hợp lệ.';
+    document.querySelector(".register_email").focus();
     document.getElementsByClassName('register_email')[0].classList.add('error-input');
     return false;
   }
 
   if (password.trim() === '') {
-    document.getElementById('passwordMessage').textContent = 'Vui lòng nhập mật khẩu.';
+    document.getElementById('passwordMessage').textContent = 'Vui lòng nhập mật khẩu.'
+    document.querySelector(".register_password").focus();
     document.getElementsByClassName('register_password')[0].classList.add('error-input');
     return false;
   } else if (password.length < 8) {
     document.getElementById('passwordMessage').textContent = 'Mật khẩu phải có ít nhất 8 ký tự.';
+    document.querySelector(".register_password").focus();
     document.getElementsByClassName('register_password')[0].classList.add('error-input');
     return false;
   }

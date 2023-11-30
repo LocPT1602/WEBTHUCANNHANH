@@ -639,9 +639,16 @@ document.addEventListener("DOMContentLoaded", function () {
             element.remove();
         });
 
-
+        cart.forEach(element => {
+            products.forEach(product => {
+                if (product.name == element.name)
+                    product.quantity = product.quantity- element.count;
+                console.log(element)
+            });
+        });
         document.getElementById('order-modal').style.display = 'none';
         // renderOrderHistory();
+        localStorage.setItem('products', JSON.stringify( products));
     });
 
 

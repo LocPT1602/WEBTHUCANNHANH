@@ -114,7 +114,7 @@ body {
     display: flex;
     width: 100%;
     height: 60px;
-    
+    cursor: pointer;
 
 }
 .admin-navbar_left li:hover
@@ -188,6 +188,29 @@ body {
     flex-direction: column;
     justify-content: space-between;
 }
+
+#productList-button{
+
+    display: flex;
+    flex-direction: column;
+}
+
+#productList-button button {
+    cursor: pointer;
+    width: 40px;
+    height: 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    /* background-color: #000; */
+    margin-bottom: 10px;
+    color: black;
+}
+
+#productList-button button:hover {
+    color: gray;
+}
+
 /* thêm sp */
 
 #wrapper_add_form_admin {
@@ -418,6 +441,7 @@ body {
     font-size: larger;
     /* border: none; */
     padding: 10px;
+    cursor: pointer;
 }
 .li_product {
     font-size: x-large;

@@ -854,7 +854,7 @@ function addProductToAdminPage(product) {
             <h5 class="mota">${product.description}</h5>
             <p class="price_item">${product.price}vnd</p>
         </div>
-        <div>
+        <div id="productList-button">
         <button class="editProductBtn" onclick="openEdit(${products.indexOf(product)})">Sửa</button>
         <button class="delProduct" onclick="deleteProduct(${products.indexOf(product)})" >Xóa</button>
         </div>

@@ -651,8 +651,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function resetCSS() {
-        document.getElementById("adress_message").style = 'display: none';
-    
+    document.getElementById("adress_message").style = 'display: none';
+
 }
 
 function closeModalOrder() {
@@ -701,7 +701,7 @@ function addProduct() {
             // Thêm sản phẩm mới vào danh sách
             products.push(product);
             // htmlProducts.push(product);
-            
+
 
             // Lưu danh sách sản phẩm mới vào Local Storage
             localStorage.setItem('products', JSON.stringify(products));
@@ -744,17 +744,17 @@ function addProduct() {
 //     addForm.style.display = 'none'
 //     var product = addProduct();
 //     // addProductToAdminPage(product);
-    
+
 //     renderAllProductsInAdmin()
 //     alert("đã thêm sản phẩm thành công, đang cập nhật lại trang")
 //     // var productManage = document.getElementById('container_admin');
-   
-    
+
+
 //     window.location.reload()
 //     productManage.style.display = 'block';
 //     // var dashBoard = document.getElementById('dashboard')
 //     dashBoard.style.display = 'none';
-    
+
 
 // });
 
@@ -859,7 +859,7 @@ function addProductToAdminPage(product) {
         <button class="delProduct" onclick="deleteProduct(${products.indexOf(product)})" >Xóa</button>
         </div>
     `;
-    
+
     // htmlProducts.push(product);
 
     containerAdmin.appendChild(newItem);
@@ -886,7 +886,7 @@ function deleteProduct(index) {
         products.splice(index, 1);
     }
     localStorage.setItem('products', JSON.stringify(products));
-    
+
     htmlProducts = [...products];
     renderAllProductsInAdmin();
 }
@@ -941,18 +941,13 @@ window.onscroll = function () {
 };
 // sửa thông tin:
 // mở sửa form sửa thogno tin
-var openEditForm= document.getElementById('edit_form')
-var saveBtnEdit=document.getElementsByClassName('saveedit')
+var openEditForm = document.getElementById('edit_form')
+
 function openEdit(index) {
     openEditForm.style.display = 'block';
     editForm(index);
 
     // Use an arrow function or function reference for the event listener
-    saveBtnEdit[index].addEventListener('click', function () {
-        saveEdit(index);
-        alert('đã thay đổi thành công!!!')
-        openEditForm.style.display = 'none';
-    });
 
     // Alternatively, you can use an arrow function directly
     // saveBtnEdit[index].addEventListener('click', () => saveEdit(index));
@@ -993,17 +988,17 @@ function editForm(index) {
         newImg.addEventListener('change', function () {
             var newImgFile = newImg.files[0];
             var newReader = new FileReader();
-    
+
             newReader.onloadend = function () {
                 // Handle the loaded image data as needed
                 var imgBase64 = newReader.result;
                 console.log('Image Base64:', imgBase64);
-    
+
                 // Display the selected image
                 displayedImage.src = imgBase64;
                 displayedImage.style.display = 'block';
             };
-    
+
             // Read the new image file as base64
             newReader.readAsDataURL(newImgFile);
         });
@@ -1013,6 +1008,17 @@ function editForm(index) {
             uploadImage();
         });
     }
+    var saveBtnEdit = document.getElementById('saveedit')
+    var openEditForm = document.getElementById('edit_form')
+
+    saveBtnEdit.addEventListener('click',function(){
+        saveEdit(index)
+        alert("đã thay đổi thành công")
+        openEditForm.style.display = 'none';
+        
+    })
+    
+
 }
 function saveEdit(index) {
     if (index >= 0 && index < products.length) {

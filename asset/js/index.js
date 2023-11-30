@@ -535,4 +535,50 @@ function validateForm() {
   return true;
 }
 
+function validateAndSave() {
+  // Get values from form inputs
+  var imgInput = document.getElementById('img_input');
+  var nameInput = document.querySelector('.nameInput');
+  var describeInput = document.querySelector('.describeInput');
+  var quantityInput = document.querySelector('.quantityInput');
+  var typeInput = document.querySelector('.typeInput');
+  var priceInput = document.querySelector('.priceInput');
+
+  // Validate the inputs
+  if (!imgInput.files.length) {
+      alert('vui lòng chọn ảnh.');
+      return;
+  }
+
+  if (!nameInput.value.trim()) {
+      alert('vui lòng nhập tên sản phẩm');
+      return;
+  }
+
+  if (!describeInput.value.trim()) {
+      alert('vui lòng nhập mô tả');
+      return;
+  }
+
+  if (!quantityInput.value.trim() || isNaN(quantityInput.value)) {
+      alert('vui lòng nhập số lượng sản phẩm');
+      return;
+  }
+
+  if (!typeInput.value.trim()) {
+      alert('vui lòng chọn loại sản phẩm');
+      return;
+  }
+
+  if (!priceInput.value.trim() || isNaN(priceInput.value)) {
+      alert('vui lòng nhập giá sản phẩm');
+      return;
+  }
+
+  // If all validations pass, proceed with saving the form
+  saveForm();
+}
+
+
+
 

@@ -189,10 +189,11 @@ body {
     justify-content: space-between;
 }
 /* thêm sp */
-#wrapper_add_form_admin{
-    width: 60%;
-    margin-left: 20%;
-    margin-top: 5%;
+
+#wrapper_add_form_admin {
+        width: 50%;
+        margin-left: 25%;
+        margin-top: 3%;
 }
 #edit_form,
 #add_form{
@@ -234,6 +235,7 @@ body {
     height: 30px;
     margin-bottom: 20px;
 }
+.saveedit,
 .save{
     margin-top: 20px;
     color: aliceblue;

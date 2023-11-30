@@ -297,7 +297,7 @@ function calculateMonthlyRevenue(orders) {
 
     // Tính toán doanh thu từ danh sách đơn hàng của tháng hiện tại
     const monthlyRevenue = monthlyOrders.reduce((total, order) => {
-        return total + calculateOrderTotal(order);
+        return calculateOrderTotal(order);
     }, 0);
 
     return monthlyRevenue;

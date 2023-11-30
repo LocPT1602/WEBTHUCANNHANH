@@ -159,6 +159,10 @@ body{
     object-fit: cover;
     object-position: center;
 }
+#slider-wrapper img:hover{
+    cursor: pointer;
+    opacity: 0.6 ;
+}
 
 #slider-wrapper .control {
     position: absolute;

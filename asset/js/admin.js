@@ -260,7 +260,7 @@ window.onload = function () {
 
 
 // Hàm tính tổng số lượng sản phẩm từ một danh sách đơn hàng
-function calculateTotalProducts(products) {
+function calculateTotalProducts(...products) {
     return products.reduce((total, products) => {
         return total + products.quantity;
     }, 0);
@@ -301,14 +301,14 @@ function calculateMonthlyRevenue(orders) {
 }
 
 // Gọi các hàm và gán giá trị vào các thẻ HTML
-const orders = JSON.parse(localStorage.getItem('orders')) || [];;
-const totalProducts = calculateTotalProducts(products);
+let orders = JSON.parse(localStorage.getItem('orders')) || [];
+let totalProducts = calculateTotalProducts(...products);
 document.getElementById('sum_product').querySelector('.product_revenue').value = totalProducts || 0;
 
-const totalOrders = calculateTotalOrders(orders);
+let totalOrders = calculateTotalOrders(orders);
 document.getElementById('sum_order').querySelector('.order_revenue').value = totalOrders || 0;
 
-const monthlyRevenue = calculateMonthlyRevenue(orders);
+let monthlyRevenue = calculateMonthlyRevenue(orders);
 document.getElementById('month_sale').querySelector('.month_revenue').value = monthlyRevenue || 0;
 
 

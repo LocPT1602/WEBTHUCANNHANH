@@ -527,17 +527,9 @@ function saveEditedInformation() {
 // lịch sử đơn hàng
 // validator
 function validateForm() {
-  var name = document.querySelector('.input-group #name').value;
-  var phone = document.querySelector('.input-group #phone').value;
   var address = document.querySelector('.input-group #address').value;
-  console.log(address)
-  if (!name || !phone || !address) {
-      alert('Vui lòng điền đầy đủ thông tin!');
-      return false;
-  }
-
-  if (phone.length !== 10 || !/^\d+$/.test(phone)) {
-      alert('Vui lòng nhập số điện thoại hợp lệ gồm 10 chữ số!');
+  if ( !address) {
+      document.querySelector("#adress_message").style = 'display: block; margin-left: 25%;';
       return false;
   }
   return true;

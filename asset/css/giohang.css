@@ -50,6 +50,7 @@
 
 #customer-info {
     padding: 5px 0px;
+    position: relative;
 }
 
 #customer-info p {

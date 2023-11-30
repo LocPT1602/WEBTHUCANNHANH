@@ -948,8 +948,9 @@
 
                             <div class="input-group">
                                 <label for="address">Địa Chỉ</label>
-                                <input type="text" id="address" required>
+                                <input type="text" id="address" onkeypress="resetCSS()">
                             </div>
+                            <div class="error_message" id="adress_message" style="display: none; position: absolute; left: 20%;" >Vui lòng nhập địa chỉ</div>
 
                             <div class="input-group">
                                 <label for="payment">Phương Thức Thanh Toán</label>
@@ -1065,7 +1066,7 @@
                             <div class="ti-archive icon_dashboard"></div>
                             <div class="content_dashboard_item">
 
-                                <h2>số lượng sản phẩm</h2>
+                                <h2>Tổng số lượng sản phẩm</h2>
 
                                 <input type="text" readonly class="input_sale product_revenue">
                             </div>
@@ -1073,7 +1074,7 @@
                         <div id="sum_order" class="dashboard_item">
                             <div class="ti-notepad icon_dashboard"></div>
                             <div class="content_dashboard_item">
-                                <h2>số lượng đơn hàng</h2>
+                                <h2>Tổng số lượng đơn hàng</h2>
 
                                 <input type="text" readonly class="input_sale order_revenue">
                             </div>
@@ -1082,7 +1083,7 @@
                             <div class="ti-money icon_dashboard"></div>
                             <div class="content_dashboard_item">
 
-                                <h2>doanh thu</h2>
+                                <h2>Tổng doanh thu</h2>
 
                                 <input type="text" readonly class="input_sale revenue">
                             </div>
@@ -1091,7 +1092,7 @@
                             <div class="ti-money icon_dashboard"></div>
                             <div class="content_dashboard_item">
 
-                                <h2>doanh thu tháng</h2>
+                                <h2>Tổng doanh thu tháng</h2>
 
                                 <input type="text" readonly class="input_sale month_revenue">
                             </div>

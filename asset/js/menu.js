@@ -602,7 +602,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     submitButton.addEventListener('click', function () {
-        validateForm();
+        if (validateForm() == false) return false;
         // Bước 1: Trích xuất thông tin cá nhân từ form
         const personalInfo = {
             name: document.querySelector('.input-group #name').value,
@@ -645,11 +645,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.getElementById('order-modal').style.display = 'none';
         // renderOrderHistory();
-
     });
 
 
 });
+
+function resetCSS() {
+        document.getElementById("adress_message").style = 'display: none';
+    
+}
 
 function closeModalOrder() {
     document.querySelector("#order-modal").style = 'display: none';

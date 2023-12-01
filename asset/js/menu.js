@@ -232,7 +232,6 @@ function renderProductsInPage(index = 0) {
                 let cartProduct = {
                     accountInfo: loggedInAccount,
                     productInfo: productToAdd,
-                    count: 1
                 };
                 if (cart.length === 0)
                     cart.push(cartProduct);
@@ -240,7 +239,7 @@ function renderProductsInPage(index = 0) {
                     let isFind = false;
                     for (let product of cart) {
                         if (product.productInfo.name == productToAdd.name) {
-                            product.count += 1;
+                            product.productInfo.count += 1;
                             isFind = true;
                             break;
                         }
@@ -321,7 +320,7 @@ function deleteCart(index, quantity = 1) {
 
 function updateCount(index, count) {
     if (count < 1) return;
-    cart[index].count = count;
+    cart[index].productInfo.count = count;
     updateProductToCart();
     renderCart()
 }
@@ -342,7 +341,7 @@ function renderCart() {
     let Total = 0;
     let cartHtml = userCart.map(item => {
         // Tính tổng giá trị
-        Total += item.count * item.productInfo.price;
+        Total += item.productInfo.count * item.productInfo.price;
 
         return `<div id="cart-item">
         <div class="cart-container">
@@ -365,7 +364,7 @@ function renderCart() {
                 </div>
 
                 <div class="item-total-price">
-                    <p>${item.productInfo.price * item.count}đ</p>
+                    <p>${item.productInfo.price * item.productInfo.count}đ</p>
                 </div>
 
                 <div class="remove-item">
@@ -388,8 +387,8 @@ function renderCart() {
             renderCart();
         })
 
-        addCountBtns[i].addEventListener('click', () => updateCount(i, cart[i].count + 1))
-        removeCountBtns[i].addEventListener('click', () => updateCount(i, cart[i].count - 1))
+        addCountBtns[i].addEventListener('click', () => updateCount(i, cart[i].productInfo.count + 1))
+        removeCountBtns[i].addEventListener('click', () => updateCount(i, cart[i].productInfo.count - 1))
     }
 
     document.querySelector('#cart-total-price').innerHTML = `Tổng tiền: ${Total} đ`;
@@ -440,7 +439,7 @@ function detailAddToCart() {
                 let cartProduct = {
                     accountInfo: loggedInAccount,
                     productInfo: productToAdd,
-                    count: 1
+                    // count: 1
                 };
                 if (cart.length === 0)
                     cart.push(cartProduct);
@@ -448,7 +447,7 @@ function detailAddToCart() {
                     let isFind = false;
                     for (let product of cart) {
                         if (product.productInfo.name == productToAdd.name) {
-                            product.count += 1;
+                            product.productInfo.count += 1;
                             isFind = true;
                             break;
                         }
@@ -561,11 +560,11 @@ function renderProductsInOrderForm() {
 
             
             <div class="item-quantity">
-                <p>${item.count}</p>
+                <p>${item.productInfo.count}</p>
             </div>
 
             <div class="item-total-price">
-                    <p>${item.count * item.productInfo.price}đ</p>
+                    <p>${item.productInfo.count * item.productInfo.price}đ</p>
             </div>
   
         </div>
@@ -628,13 +627,13 @@ document.addEventListener("DOMContentLoaded", function () {
         // Bước 4: Xóa dữ liệu giỏ hàng trong localStorage
         // localStorage.removeItem('cart');
         
-        cart.forEach(element => {
-            products.forEach(product => {
-                if (product.name == element.productInfo.name) {
-                    product.quantity = parseInt(product.quantity) - parseInt(element.productInfo.count)
-                }
-            })
-        });
+        // cart.forEach(element => {
+        //     products.forEach(product => {
+        //         if (product.name == element.productInfo.name) {
+        //             product.quantity = parseInt(product.quantity) - parseInt(element.productInfo.count)
+        //         }
+        //     })
+        // });
         deleteCart(0, cart.length);
         updateProductToCart();
         renderCart();
@@ -650,7 +649,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         document.getElementById('order-modal').style.display = 'none';
         // renderOrderHistory();
-        localStorage.setItem('products', JSON.stringify(products));
+        // localStorage.setItem('products', JSON.stringify(products));
     });
 
 

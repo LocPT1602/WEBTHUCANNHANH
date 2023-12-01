@@ -627,13 +627,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Bước 4: Xóa dữ liệu giỏ hàng trong localStorage
         // localStorage.removeItem('cart');
         
-        // cart.forEach(element => {
-        //     products.forEach(product => {
-        //         if (product.name == element.productInfo.name) {
-        //             product.quantity = parseInt(product.quantity) - parseInt(element.productInfo.count)
-        //         }
-        //     })
-        // });
+        
         deleteCart(0, cart.length);
         updateProductToCart();
         renderCart();
@@ -649,7 +643,6 @@ document.addEventListener("DOMContentLoaded", function () {
         
         document.getElementById('order-modal').style.display = 'none';
         // renderOrderHistory();
-        // localStorage.setItem('products', JSON.stringify(products));
     });
 
 

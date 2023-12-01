@@ -358,7 +358,7 @@ function renderCart() {
                 <div class="incrementer">
                     <button class="remove">-</button>
                     <div class="quantity">
-                        <p>${item.count}</p>
+                        <p>${item.productInfo.count}</p>
                     </div>
                     
                     <button class="add">+</button>
@@ -627,6 +627,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Bước 4: Xóa dữ liệu giỏ hàng trong localStorage
         // localStorage.removeItem('cart');
+        
+        cart.forEach(element => {
+            products.forEach(product => {
+                if (product.name == element.productInfo.name) {
+                    product.quantity = parseInt(product.quantity) - parseInt(element.productInfo.count)
+                }
+            })
+        });
         deleteCart(0, cart.length);
         updateProductToCart();
         renderCart();
@@ -639,16 +647,10 @@ document.addEventListener("DOMContentLoaded", function () {
             element.remove();
         });
 
-        cart.forEach(element => {
-            products.forEach(product => {
-                if (product.name == element.name)
-                    product.quantity = product.quantity- element.count;
-                console.log(element)
-            });
-        });
+        
         document.getElementById('order-modal').style.display = 'none';
         // renderOrderHistory();
-        localStorage.setItem('products', JSON.stringify( products));
+        localStorage.setItem('products', JSON.stringify(products));
     });
 
 

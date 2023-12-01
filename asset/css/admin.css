@@ -230,7 +230,7 @@ body {
     height: 100%;
     background-color: #0000007b;
 }
-.close_add_form{
+.close_add_form {
     position: absolute;
     top: 0;
     right: 0;
@@ -497,10 +497,10 @@ body {
     align-items: flex-start;
     padding: 10px;
 }
-.fa-x{
+.close_add_form {
     padding: 5px;
 }
-.fa-x:hover{
+.close_add_form:hover {
     cursor: pointer;
     background-color: #000;
     color: #ccc;

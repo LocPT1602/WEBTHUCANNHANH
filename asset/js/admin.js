@@ -420,14 +420,16 @@ function filterRevenue() {
         const startDate = startDateInput.value
             ? new Date(startDateInput.value)
             : firstOrderDate;
+            startDate.setHours(0,0,0,0)
 
         const endDate = new Date(endDateInput.value);
-
+        endDate.setHours(23,59,59,99)
         const filteredOrders = orders.filter(order => {
             const orderDate = new Date(order.personalInfo.deliveryTime);
             return orderDate >= startDate && orderDate <= endDate;
         });
-
+        console.log(startDate)
+        console.log(endDate)
         const revenueByProductType = calculateRevenueByProductType(filteredOrders);
 
         displayRevenueAndTotal(revenueByProductType);

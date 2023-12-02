@@ -190,10 +190,18 @@ function confirmOrder(index) {
     // Lưu lại danh sách đơn hàng đã cập nhật vào Local Storage
     localStorage.setItem('orders', JSON.stringify(orders));
 
+    orders[index].cartItems.forEach(element => {
+        products.forEach(product => {
+            if (product.name == element.productInfo.name) {
+                product.quantity = parseInt(product.quantity) - parseInt(element.productInfo.count)
+            }
+        })
+    });
+    localStorage.setItem('products', JSON.stringify(products));
 
     // Hiển thị lại danh sách đơn hàng
     renderOrderHistoryView();
-    document.querySelector(".head").style = 'background-color: green';
+    document.querySelector(`#${index}`).style = 'background-color: green';
 
 }
 
@@ -263,7 +271,7 @@ window.onload = function () {
 
 
 // Hàm tính tổng số lượng sản phẩm từ một danh sách đơn hàng
-function calculateTotalProducts(...products) {
+function calculateTotalProducts(products) {
     return products.reduce((total, products) => {
         return total + products.quantity;
     }, 0);
@@ -305,7 +313,7 @@ function calculateMonthlyRevenue(orders) {
 
 // Gọi các hàm và gán giá trị vào các thẻ HTML
 let orders = JSON.parse(localStorage.getItem('orders')) || [];
-let totalProducts = calculateTotalProducts(...products);
+let totalProducts = calculateTotalProducts(products);
 document.getElementById('sum_product').querySelector('.product_revenue').value = totalProducts || 0;
 
 let totalOrders = calculateTotalOrders(orders);

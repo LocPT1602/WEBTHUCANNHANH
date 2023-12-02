@@ -385,7 +385,7 @@ function regist(event) {
     document.getElementsByClassName('register_email')[0].classList.add('error-input');
     return false;
   }
-
+ 
   if (password.trim() === '') {
     document.getElementById('passwordMessage').textContent = 'Vui lòng nhập mật khẩu.'
     document.querySelector(".register_password").focus();

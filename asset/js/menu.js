@@ -151,6 +151,7 @@ function taomenu() {
     var nav = document.querySelector("#nav-container ul");
     nav.innerHTML = finalData;
     renderProducts();
+
 }
 
 // ============================================================================================================================================

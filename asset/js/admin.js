@@ -436,8 +436,8 @@ function filterRevenue() {
             const orderDate = new Date(order.personalInfo.deliveryTime);
             return orderDate >= startDate && orderDate <= endDate;
         });
-        console.log(startDate)
-        console.log(endDate)
+        // console.log(startDate)
+        // console.log(endDate)
         const revenueByProductType = calculateRevenueByProductType(filteredOrders);
 
         displayRevenueAndTotal(revenueByProductType);

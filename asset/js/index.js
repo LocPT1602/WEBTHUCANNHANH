@@ -373,7 +373,7 @@ function regist(event) {
   }
 
   if (!validatePhoneNumber(phoneNumber)) {
-    document.getElementById('phoneMessage').textContent = 'Vui lòng nhập số điện thoại( 10 chữ số).';
+    document.getElementById('phoneMessage').textContent = 'Vui lòng nhập số điện thoại( 10 chữ số ví dụ:0XXXXX1234).';
     document.querySelector(".register_phone").focus();
     document.getElementsByClassName('register_phone')[0].classList.add('error-input');
     return false;
@@ -398,7 +398,7 @@ function regist(event) {
     return false;
   }
   function validatePhoneNumber(phoneNumber) {
-    const phoneRegex = /^\d{10}$/;
+    const phoneRegex = /^0\d{9}$/;
     return phoneNumber.trim() !== '' && phoneRegex.test(phoneNumber);
 }
 

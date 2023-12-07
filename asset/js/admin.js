@@ -290,7 +290,7 @@ function calculateOrderTotal(order) {
 
 // Hàm tính doanh thu tháng từ danh sách đơn hàng
 function calculateMonthlyRevenue(orders) {
-    const currentDate = new Date();
+    const currentDate = new Date(); 
     const currentMonth = currentDate.getMonth() + 1; // Tháng bắt đầu từ 0
     const currentYear = currentDate.getFullYear();
 
@@ -304,15 +304,19 @@ function calculateMonthlyRevenue(orders) {
     });
 
     // Tính toán doanh thu từ danh sách đơn hàng của tháng hiện tại
-    const monthlyRevenue = monthlyOrders.reduce((total, order) => {
-        return calculateOrderTotal(order);
+    const monthlyRevenue = monthlyOrders.reduce((total, orders) => {
+        
+        return calculateOrderTotal(orders);
+        
     }, 0);
 
     return monthlyRevenue;
+    
 }
 
 // Gọi các hàm và gán giá trị vào các thẻ HTML
 let orders = JSON.parse(localStorage.getItem('orders')) || [];
+console.log(orders)
 let totalProducts = calculateTotalProducts(products);
 document.getElementById('sum_product').querySelector('.product_revenue').value = totalProducts || 0;
 
@@ -320,7 +324,7 @@ let totalOrders = calculateTotalOrders(orders);
 document.getElementById('sum_order').querySelector('.order_revenue').value = totalOrders || 0;
 
 let monthlyRevenue = calculateMonthlyRevenue(orders);
-document.getElementById('month_sale').querySelector('.month_revenue').value = monthlyRevenue || 0;
+
 
 
 
@@ -364,6 +368,8 @@ function calculateRevenueByProductType(orders) {
     });
     const totalRevenue = calculateTotalRevenue(revenueByProductType);
 document.getElementById('revenueall').querySelector('.revenue').value = totalRevenue !== undefined ? totalRevenue : 0;
+document.getElementById('month_sale').querySelector('.month_revenue').value = totalRevenue||0;
+
     return revenueByProductType;
 }
 

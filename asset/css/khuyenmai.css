@@ -3,12 +3,14 @@
     margin: 0 auto;
     height: 900px;
 }
-.banner_sale{
+.banner_sale {
     margin-top: 80px;
+    height: 700px;
+    background-size: cover;
 }
 .banner_sale img{
     width: 100%;
-    height: 500px;
+    /* height: 500px; */
 }
 .list{
     display: grid;

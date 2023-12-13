@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     sidebarItems.forEach(function (item) {
         item.addEventListener("click", function () {
             var targetValue = item.getAttribute("data-target");
+            
 
 
             // Gán nội dung của thẻ a vào biến
@@ -24,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentSelected.style.display = 'none';
 
             }
+          
             
 
 
@@ -345,6 +347,7 @@ function calculateRevenueByProductType(orders) {
     };
 
     orders.forEach(order => {
+        if (order.status=="Đã xử lí") {
         order.cartItems.forEach(item => {
             const productType = item.productInfo.type;
             const productTotal = item.productInfo.price * item.productInfo.count;
@@ -365,6 +368,7 @@ function calculateRevenueByProductType(orders) {
                 });
             }
         });
+    }
     });
     const totalRevenue = calculateTotalRevenue(revenueByProductType);
 document.getElementById('revenueall').querySelector('.revenue').value = totalRevenue !== undefined ? totalRevenue : 0;

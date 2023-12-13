@@ -1013,7 +1013,14 @@ function editForm(index) {
     saveBtnEdit.addEventListener('click',function(){
         saveEdit(index)
         alert("đã thay đổi thành công")
+        
         openEditForm.style.display = 'none';
+        location.reload();
+        
+
+
+        
+
         
     })
     

@@ -14,6 +14,8 @@ var menuBtn = document.getElementsByClassName('menu_btn')[0]
 var saleBtn = document.getElementsByClassName('sale_btn')[0]
 var serviceBtn = document.getElementsByClassName('service_btn')[0]
 var searchBtn = document.getElementsByClassName('ti-search')[0]
+
+
 function PageOpen(page, btn) {
   closeAllPages(btn);
   var computedStyle = window.getComputedStyle(page);
@@ -129,11 +131,13 @@ var closeRegister = document.getElementsByClassName('close_register')[0];
 var registForm = document.getElementById('register_form');
 var returnLoginForm = document.getElementsByClassName('login_return')[0];
 var forgetAccount = document.getElementById('foget_pass_form');
+var closeForgetForm = document.getElementsByClassName('close_forget')[0];
 var forgetAccountBtn = document.getElementsByClassName('login_forget_pass')
 var loginBtn = document.getElementsByClassName('login_btn')[0];
 var user = document.getElementById('nameuser')
 var LogOut = document.getElementById('logout')
 var logOutBtn = document.getElementsByClassName('logout_btn')[0]
+closeForgetForm.addEventListener('click',forgetFormClose)
 
 let inforAccount = JSON.parse(localStorage.getItem('accountData')) ?? [];
 if (inforAccount.length == 0) 
@@ -185,7 +189,12 @@ function loginFormClose() {
     loginForm.style.display = 'none';
   }
 }
-
+function forgetFormClose() {
+  var computedStyle = window.getComputedStyle(forgetAccount);
+  if (computedStyle.display === 'block') {
+    forgetAccount.style.display = 'none';
+  }
+}
 function registFormOpen() {
   var computedStyle = window.getComputedStyle(registForm);
   if (computedStyle.display === 'none') {

@@ -204,6 +204,7 @@ function confirmOrder(index) {
     // Hiển thị lại danh sách đơn hàng
     renderOrderHistoryView();
     document.querySelector(`#${index}`).style = 'background-color: green';
+    window.Location.reload();
 
 }
 

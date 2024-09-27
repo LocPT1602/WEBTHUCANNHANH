@@ -6,3 +6,4 @@ Tính năng chính
 Quản lý đơn hàng: Hệ thống cho phép người dùng theo dõi tình trạng đơn hàng từ lúc đặt đến khi giao hàng thành công.
 Quản lý thực đơn: Các nhà hàng có thể cập nhật và quản lý thực đơn của mình thông qua giao diện quản trị.
 Thanh toán trực tuyến: Hỗ trợ nhiều phương thức thanh toán như thẻ tín dụng, ví điện tử.
+!!!!!!ĐÂY LÀ ĐỒ ÁN HỌC TẬP
